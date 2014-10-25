@@ -139,7 +139,7 @@ public final class Logger {
             // Get the SimpleDateFormat string for the logged timestamp
             Properties prop = new Properties();
             // Load the properties
-            prop.load(new FileInputStream("src" + fs + "logging" + fs + "Logger.properties"));
+            prop.load(new FileInputStream("src" + fs + "logging" + fs + "logger.properties"));
             // Reassign the timeStampProperty
             timeStampProperty = prop.getProperty("TimeStampFormat");
         } catch (Exception ex) {    // Do nothing if exception is thrown
