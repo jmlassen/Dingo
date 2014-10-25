@@ -1,4 +1,4 @@
-package logging;
+package Logger;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -133,9 +133,9 @@ public final class Logger {
             // Load the properties
             prop.load(new FileInputStream("src" + fs + "logging" + fs + "logger.properties"));
             // Get the timeStampProperty
-            timeStampProperty = prop.getProperty("TimeStampFormat");
+            timeStampProperty = prop.getProperty("format.timestamp");
             // Get the app name property
-            appNameProperty = prop.getProperty("appName");
+            appNameProperty = prop.getProperty("app.name");
         } catch (Exception ex) {    // Do nothing if exception is thrown, use default values
         }
         // Create save directory
