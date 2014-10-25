@@ -22,7 +22,7 @@ public class Logger {
     // The format of the timestamp
     private final DateFormat formatTimeStamp;
     // Whether the file directory has been validated
-    private boolean fileValidated = false;
+    private boolean logFileValidated;
     
     /**
      * Allows user to access the functions of the Logger throughout all their program.
@@ -39,7 +39,7 @@ public class Logger {
     public void Log(String logString) {
         try {    
             // Check to see if file has been validated yet
-            if (!fileValidated) {
+            if (!logFileValidated) {
                 validateFile();
             }
             // Get timestamp
@@ -72,7 +72,7 @@ public class Logger {
         this.logFileNameStr = logFileStr;
         logFile = new File(logDir, logFileStr);
         // Mark that file needs to be validated
-        fileValidated = false;
+        logFileValidated = false;
     }
     
     /**
@@ -90,7 +90,7 @@ public class Logger {
     public void setLogDir(File logDir) {
         this.logDir = logDir;
         // Mark that file needs to be validated
-        fileValidated = false;
+        logFileValidated = false;
     }
     
     /**
@@ -108,6 +108,8 @@ public class Logger {
             // Create a new empty file
             logFile.createNewFile();
         }
+        // Mark log file as validated
+        logFileValidated = true;
     }
     
     /**
@@ -127,5 +129,7 @@ public class Logger {
         logFile = new File(logDirStr, logFileNameStr);
         // Set timestamp format, we should move string to a properties file
         formatTimeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
+        // Make sure logFile gets validated before writing
+        logFileValidated = false;
     }
 }
