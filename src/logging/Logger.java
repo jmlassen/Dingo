@@ -136,7 +136,7 @@ public final class Logger {
             timeStampProperty = prop.getProperty("TimeStampFormat");
             // Get the app name property
             appNameProperty = prop.getProperty("appName");
-        } catch (Exception ex) {    // Do nothing if exception is thrown
+        } catch (Exception ex) {    // Do nothing if exception is thrown, use default values
         }
         // Create save directory
         setLogDir(new File(System.getProperty("user.home") + fs + "." + appNameProperty + fs + "logs"));
