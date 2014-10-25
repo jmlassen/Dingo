@@ -114,7 +114,7 @@ public final class Logger {
             // Get the property
             property = prop.getProperty(key);
         } catch (Exception ex) {
-            // If exception gets thrown, returh default value
+            // If exception gets thrown, return default value
             return defaultValue;
         }
         return property;
