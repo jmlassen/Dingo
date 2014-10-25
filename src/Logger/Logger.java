@@ -27,7 +27,7 @@ public final class Logger {
     // Whether the file directory has been validated
     private boolean logFileValidated;
     // File seperator for this system
-    private String fs;
+    private final String fs;
     
     /**
      * Allows user to access the functions of the Logger throughout all their program.
@@ -48,15 +48,14 @@ public final class Logger {
                 validateFile();
             }
             // Get timestamp
-            String timeStamp = formatTimeStamp.format(Calendar.getInstance().getTime());
+            String timeStampStr = formatTimeStamp.format(Calendar.getInstance().getTime());
             // Create the buffered writer and declare that we are appending the file
-            BufferedWriter bw = new BufferedWriter(new FileWriter(logFile, true));
-            // log the timestamped message
-            bw.write(timeStamp + " - " + logString);
-            // Add a new line
-            bw.newLine();
-            // Close the writer
-            bw.close();
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(logFile, true))) {
+                // log the timestamped message
+                bw.write(timeStampStr + " - " + logString);
+                // Add a new line
+                bw.newLine();
+            }
         } catch (Exception ex) {    // Do nothing if exception is thrown
         }
     }
