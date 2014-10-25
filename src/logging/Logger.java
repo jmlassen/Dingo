@@ -126,7 +126,7 @@ public final class Logger {
         String logDirStr = System.getProperty("user.home");
         // Get the directory seporator for the users system, and add our directory
         logDirStr += fs + ".dingo" + fs;
-        logDirStr += fs + "Logs" + fs;
+        logDirStr += fs + "logs" + fs;
         // Create save directory
         setLogDir(new File(logDirStr));
         // Initialize where the log file is going to get saved.
