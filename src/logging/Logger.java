@@ -2,10 +2,12 @@ package logging;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Properties;
 /**
  * Class to allow the rest of the program to log files whilst only having one instance of the Logger
  * object. To log a file, call using Logger.getInstance().Log("Here is my message to log")
@@ -127,8 +129,19 @@ public class Logger {
         logFileNameStr = "log.out";
         // Create save file
         logFile = new File(logDirStr, logFileNameStr);
-        // Set timestamp format, we should move string to a properties file
-        formatTimeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
+        // Create holder for time stamp date format
+        String timeStampProperty = "yyyy";
+        try {
+            // Get the SimpleDateFormat string for the logged timestamp
+            Properties prop = new Properties();
+            // Load the properties
+            prop.load(new FileInputStream("Logger.properties"));
+            // Reassign the timeStampProperty
+            timeStampProperty = prop.getProperty("TimeStampFormat");
+        } catch (Exception ex) {    // Do nothing if exception is thrown
+        }
+        // Set timestamp format
+        formatTimeStamp = new SimpleDateFormat(timeStampProperty);
         // Make sure logFile gets validated before writing
         logFileValidated = false;
     }
