@@ -1,7 +1,5 @@
 package dingo;
 
-import logging.Logger;
-
 /**
  *
  * @author Joel Lassen
