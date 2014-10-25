@@ -1,5 +1,7 @@
 package dingo;
 
+import logging.Logger;
+
 /**
  *
  * @author Joel Lassen
@@ -13,8 +15,8 @@ public class Dingo {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        System.out.println(System.getProperty("user.home"));
-        System.out.println(System.getProperty("file.separator"));
+        Logger.getInstance().Log("Here is a test log");
+        Logger.getInstance().Log("Here is another test log");
     }
     
 }
