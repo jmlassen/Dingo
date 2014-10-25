@@ -123,23 +123,27 @@ public final class Logger {
     private Logger() {
         // Set the file seperator
         fs = File.separator;
-        // Create save directory
-        setLogDir(new File(System.getProperty("user.home") + fs + ".dingo" + fs + "logs"));
-        // Initialize where the log file is going to get saved.
-        setLogFile("log.out");
-        // Create save file
-        logFile = new File(logDir, logFileNameStr);
         // Create holder for time stamp date format
         String timeStampProperty = "yyyy";
+        // Create holder for the appName, used for creating log directory name
+        String appNameProperty = "myApp";
         try {
             // Get the SimpleDateFormat string for the logged timestamp
             Properties prop = new Properties();
             // Load the properties
             prop.load(new FileInputStream("src" + fs + "logging" + fs + "logger.properties"));
-            // Reassign the timeStampProperty
+            // Get the timeStampProperty
             timeStampProperty = prop.getProperty("TimeStampFormat");
+            // Get the app name property
+            appNameProperty = prop.getProperty("appName");
         } catch (Exception ex) {    // Do nothing if exception is thrown
         }
+        // Create save directory
+        setLogDir(new File(System.getProperty("user.home") + fs + "." + appNameProperty + fs + "logs"));
+        // Initialize where the log file is going to get saved.
+        setLogFile("log.out");
+        // Create save file
+        logFile = new File(logDir, logFileNameStr);
         // Set timestamp format
         formatTimeStamp = new SimpleDateFormat(timeStampProperty);
         // Make sure logFile gets validated before writing
