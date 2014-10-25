@@ -10,10 +10,10 @@ import java.util.Calendar;
 import java.util.Properties;
 /**
  * Class to allow the rest of the program to log files whilst only having one instance of the Logger
- * object. To log a file, call using Logger.getInstance().Log("Here is my message to log")
+ * object. To log a file, call using Logger.getInstance().log("Here is my message to log")
  * @author Joel Lassen
  */
-public class Logger {
+public final class Logger {
     // Initialized when program starts
     private static final Logger instance = new Logger();
     // Directory where log file is getting saved
@@ -25,6 +25,8 @@ public class Logger {
     private final DateFormat formatTimeStamp;
     // Whether the file directory has been validated
     private boolean logFileValidated;
+    // File seperator for this system
+    private String fs;
     
     /**
      * Allows user to access the functions of the Logger throughout all their program.
@@ -38,7 +40,7 @@ public class Logger {
      * Called when the user wants to log a message to the log file.
      * @param logString text to be logged
      */
-    public void Log(String logString) {
+    public void log(String logString) {
         try {    
             // Check to see if file has been validated yet
             if (!logFileValidated) {
@@ -48,7 +50,7 @@ public class Logger {
             String timeStamp = formatTimeStamp.format(Calendar.getInstance().getTime());
             // Create the buffered writer and declare that we are appending the file
             BufferedWriter bw = new BufferedWriter(new FileWriter(logFile, true));
-            // Log the timestamped message
+            // log the timestamped message
             bw.write(timeStamp + " - " + logString);
             // Add a new line
             bw.newLine();
@@ -118,15 +120,17 @@ public class Logger {
      * Initialize where the log is getting saved to and timestamp format.
      */
     private Logger() {
+        // Set the file seperator
+        fs = File.separator;
         // Get the home for the user account
         String logDirStr = System.getProperty("user.home");
         // Get the directory seporator for the users system, and add our directory
-        logDirStr += File.separator + ".dingo" + File.separator;
-        logDirStr += File.separator + "Logs" + File.separator;
+        logDirStr += fs + ".dingo" + fs;
+        logDirStr += fs + "Logs" + fs;
         // Create save directory
-        logDir = new File(logDirStr);
+        setLogDir(new File(logDirStr));
         // Initialize where the log file is going to get saved.
-        logFileNameStr = "log.out";
+        setLogFile("log.out");
         // Create save file
         logFile = new File(logDirStr, logFileNameStr);
         // Create holder for time stamp date format
@@ -135,7 +139,7 @@ public class Logger {
             // Get the SimpleDateFormat string for the logged timestamp
             Properties prop = new Properties();
             // Load the properties
-            prop.load(new FileInputStream("Logger.properties"));
+            prop.load(new FileInputStream("src" + fs + "logging" + fs + "Logger.properties"));
             // Reassign the timeStampProperty
             timeStampProperty = prop.getProperty("TimeStampFormat");
         } catch (Exception ex) {    // Do nothing if exception is thrown
