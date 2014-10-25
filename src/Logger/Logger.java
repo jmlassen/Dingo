@@ -99,6 +99,28 @@ public final class Logger {
     }
     
     /**
+     * Simple method for getting properties from the Logger properties file.
+     * @param key the key of the property
+     * @param defaultValue if key not found, returns
+     * @return the value linked to the key or the default property
+     */
+    public String getProperty(String key, String defaultValue) {
+        String property;
+        try {
+            // Get the SimpleDateFormat string for the logged timestamp
+            Properties prop = new Properties();
+            // Load the properties
+            prop.load(new FileInputStream("src" + fs + "logging" + fs + "logger.properties"));
+            // Get the property
+            property = prop.getProperty(key);
+        } catch (Exception ex) {
+            // If exception gets thrown, returh default value
+            return defaultValue;
+        }
+        return property;
+    }
+    
+    /**
      * Validates the save directory and file. Creates them if they do not exist.
      * @throws Exception if file and directory cannot be created
      */
@@ -123,29 +145,15 @@ public final class Logger {
     private Logger() {
         // Set the file seperator
         fs = File.separator;
-        // Create holder for time stamp date format
-        String timeStampProperty = "yyyy";
-        // Create holder for the appName, used for creating log directory name
-        String appNameProperty = "myApp";
-        try {
-            // Get the SimpleDateFormat string for the logged timestamp
-            Properties prop = new Properties();
-            // Load the properties
-            prop.load(new FileInputStream("src" + fs + "logging" + fs + "logger.properties"));
-            // Get the timeStampProperty
-            timeStampProperty = prop.getProperty("format.timestamp");
-            // Get the app name property
-            appNameProperty = prop.getProperty("app.name");
-        } catch (Exception ex) {    // Do nothing if exception is thrown, use default values
-        }
         // Create save directory
-        setLogDir(new File(System.getProperty("user.home") + fs + "." + appNameProperty + fs + "logs"));
+        setLogDir(new File(System.getProperty("user.home") + fs + "." + 
+                getProperty("app.name", "myApp") + fs + "logs"));
         // Initialize where the log file is going to get saved.
-        setLogFile("log.out");
+        setLogFile(getProperty("logfile.name", "log.out"));
         // Create save file
         logFile = new File(logDir, logFileNameStr);
         // Set timestamp format
-        formatTimeStamp = new SimpleDateFormat(timeStampProperty);
+        formatTimeStamp = new SimpleDateFormat(getProperty("format.timestamp", "yyyy"));
         // Make sure logFile gets validated before writing
         logFileValidated = false;
     }
