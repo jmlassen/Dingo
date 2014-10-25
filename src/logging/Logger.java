@@ -6,7 +6,6 @@ import java.io.FileWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
 /**
  * Class to allow the rest of the program to log files whilst only having one instance of the Logger
  * object. To log a file, call using Logger.getInstance().Log("Here is my message to log")
@@ -58,11 +57,11 @@ public class Logger {
     }
     
     /**
-     * Get the log file.
-     * @return where the log file gets saved to
+     * Returns the name of the log file, this does not include the file directory.
+     * @return log fileName (e.g. log.out)
      */
-    public File getLogFile() {
-        return logFile;
+    public String getlogFile() {
+        return logFileNameStr;
     }
     
     /**
@@ -77,8 +76,16 @@ public class Logger {
     }
     
     /**
+     * Returns the directory the logs will be saved, this does not include the file itself.
+     * @return log file directory (e.g. c:\\temp\\)
+     */
+    public File getLogDir() {
+        return logDir;
+    }
+    
+    /**
      * Sets the directory where the log file is going to get saved to.
-     * @param logDir 
+     * @param logDir directory
      */
     public void setLogDir(File logDir) {
         this.logDir = logDir;
