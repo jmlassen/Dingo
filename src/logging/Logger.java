@@ -18,8 +18,9 @@ public final class Logger {
     private static final Logger instance = new Logger();
     // Directory where log file is getting saved
     private File logDir;
-    // Where the log is getting saved to
+    // log fileName
     private String logFileNameStr;
+    // Where log file is getting saved (logDir\logFileNameStr)
     private File logFile;
     // The format of the timestamp
     private final DateFormat formatTimeStamp;
@@ -122,17 +123,12 @@ public final class Logger {
     private Logger() {
         // Set the file seperator
         fs = File.separator;
-        // Get the home for the user account
-        String logDirStr = System.getProperty("user.home");
-        // Get the directory seporator for the users system, and add our directory
-        logDirStr += fs + ".dingo" + fs;
-        logDirStr += fs + "logs" + fs;
         // Create save directory
-        setLogDir(new File(logDirStr));
+        setLogDir(new File(System.getProperty("user.home") + fs + ".dingo" + fs + "logs"));
         // Initialize where the log file is going to get saved.
         setLogFile("log.out");
         // Create save file
-        logFile = new File(logDirStr, logFileNameStr);
+        logFile = new File(logDir, logFileNameStr);
         // Create holder for time stamp date format
         String timeStampProperty = "yyyy";
         try {
