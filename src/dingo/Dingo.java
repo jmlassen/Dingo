@@ -15,8 +15,6 @@ public class Dingo {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Logger.getInstance().Log("Here is a test log");
-        Logger.getInstance().Log("Here is another test log");
     }
     
 }

@@ -54,7 +54,7 @@ public class Logger {
     private Logger() {
         // Get the home for the user account
         String logFileStr = System.getProperty("user.home");
-        // Get the directory seporator for the users system, and add our own dir
+        // Get the directory seporator for the users system, and add our directory
         logFileStr += File.separator + ".dingo" + File.separator;
         String logDirStr = logFileStr += File.separator + "Logs" + File.separator;
         // Add the name of the log file
