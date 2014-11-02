@@ -1,7 +1,7 @@
 package Dingo;
 
 /**
- *
+ * 
  * @author Joel Lassen
  * @author Heidy
  * @author Justin
@@ -13,7 +13,5 @@ public class Dingo {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        
     }
-    
 }
