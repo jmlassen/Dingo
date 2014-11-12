@@ -21,12 +21,5 @@ public class Dingo {
     }
 
     private void run() {
-        System.out.println("Hello World!");
-        System.out.println("Hello Joel, I did what you asked :)");
-        System.out.println("Here is something else!");
-        System.out.println("I think we messed up :/");
-        System.out.println("You fools!");
-        System.out.println("added.");
-        System.out.println("I am adding something for you dog");
     }
 }
