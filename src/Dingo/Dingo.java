@@ -26,5 +26,6 @@ public class Dingo {
         System.out.println("Here is something else!");
         System.out.println("I think we messed up :/");
         System.out.println("You fools!");
+        System.out.println("I am adding something for you dog");
     }
 }
