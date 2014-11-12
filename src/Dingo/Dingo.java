@@ -1,5 +1,11 @@
 package Dingo;
 
+import com.dropbox.core.*;
+import java.io.*;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * 
  * @author Joel Lassen
@@ -7,11 +13,14 @@ package Dingo;
  * @author Justin
  */
 public class Dingo {
-
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        new Dingo().run();
+    }
+
+    private void run() {
+        System.out.println("Hello World!");
     }
 }
