@@ -21,5 +21,6 @@ public class Dingo {
     }
 
     private void run() {
+        String temp = PropertiesService.getProperty("madness","madness");
     }
 }
