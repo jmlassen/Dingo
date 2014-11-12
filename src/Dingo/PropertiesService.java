@@ -1,7 +1,11 @@
 package Dingo;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Handles all the properties business we are going to need for Dingo.
@@ -30,10 +34,10 @@ public class PropertiesService {
     
     /**
      * Sets the dropboxAccountName property.
-     * @param value 
+     * @param token 
      */
-    public static void setDropboxAccount(String value) {
-        getInstance().setDingoProperty("dropboxAccountName", value);
+    public static void setDropboxAccessToken(String token) {
+        getInstance().setDingoProperty("DropboxAccessToken", token);
     }
     
     /**
@@ -72,7 +76,14 @@ public class PropertiesService {
      */
     private void setDingoProperty(String key, String value) {
         Properties prop = new Properties();
-        prop.setProperty(key, value);
+        
+        try {
+            prop.load(Dingo.class.getClassLoader().getResourceAsStream("dingo.properties"));
+            prop.setProperty(key, value);
+        } catch (IOException ex) {
+            System.out.println("Error setting \"" + key + "\" property.");
+            System.exit(1);
+        }
     }
     
     /**
