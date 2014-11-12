@@ -1,11 +1,5 @@
 package Dingo;
 
-import com.dropbox.core.*;
-import java.io.*;
-import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  * 
  * @author Joel Lassen
@@ -21,6 +15,6 @@ public class Dingo {
     }
 
     private void run() {
-        String temp = PropertiesService.getProperty("madness","madness");
+        DropboxService.start();
     }
 }

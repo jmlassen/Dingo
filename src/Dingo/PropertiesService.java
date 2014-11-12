@@ -18,8 +18,22 @@ public class PropertiesService {
         return instance;
     }
     
-    public static String getProperty(String key, String defaultProp) {
-        return getInstance().getDingoProperty(key, defaultProp);
+    
+    /**
+     * Shortcut for getting properties.
+     * @param key
+     * @return 
+     */
+    public static String getProperty(String key) {
+        return getInstance().getDingoProperty(key);
+    }
+    
+    /**
+     * Sets the dropboxAccountName property.
+     * @param value 
+     */
+    public static void setDropboxAccount(String value) {
+        getInstance().setDingoProperty("dropboxAccountName", value);
     }
     
     /**
@@ -27,10 +41,9 @@ public class PropertiesService {
      * file IS NOT included in the git repo, so if you cloned this repo, you are
      * going to have to add it manually, lo siento.
      * @param key the property key
-     * @param defaultProp the value if the property was not found
-     * @return the property if found, else the passed default property. 
+     * @return the found property value
      */
-    private String getDingoProperty(String key, String defaultProp){
+    private String getDingoProperty(String key) {
         Properties prop = new Properties();
         InputStream in = null;
         // Check to see if the properties file has been added yet
@@ -42,9 +55,24 @@ public class PropertiesService {
                     " and try running the program again.");
             System.exit(1);
         }
-        // Get the requested property
-        
-        return defaultProp;
+        // Get the requested property stored 
+        String storedProperty = prop.getProperty(key);
+        if (storedProperty == null) {
+            System.out.println("Could not find the \"" + key + "\" property."
+            + " Please add it to your properties file and try again.");
+            System.exit(1);
+        }
+        return storedProperty;
+    }
+    
+    /**
+     * Sets a property in our properites file.
+     * @param key
+     * @param value 
+     */
+    private void setDingoProperty(String key, String value) {
+        Properties prop = new Properties();
+        prop.setProperty(key, value);
     }
     
     /**
