@@ -45,6 +45,11 @@ class DropboxService {
         }
     }
 
+    /**
+     * 
+     * @param config
+     * @param appInfo 
+     */
     private static void linkAccount(DbxRequestConfig config, DbxAppInfo appInfo) {
         try {
             DbxWebAuthNoRedirect webAuth = new DbxWebAuthNoRedirect(config, appInfo);
