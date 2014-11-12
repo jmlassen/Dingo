@@ -22,5 +22,6 @@ public class Dingo {
 
     private void run() {
         System.out.println("Hello World!");
+        System.out.println("Here is something else!");
     }
 }
