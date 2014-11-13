@@ -1,11 +1,9 @@
 package Dingo;
 
-import java.io.IOException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Handles all the properties business we are going to need for Dingo.
@@ -77,11 +75,20 @@ public class PropertiesService {
     private void setDingoProperty(String key, String value) {
         Properties prop = new Properties();
         
+        // Check to see if the properties file has been added yet
         try {
-            prop.load(Dingo.class.getClassLoader().getResourceAsStream("dingo.properties"));
+            FileInputStream in = new FileInputStream(
+                    Dingo.class.getClassLoader().getResource("dingo.properties").getFile());
+            prop.load(in);
+            in.close();
+            
+            FileOutputStream out = new FileOutputStream(
+                    Dingo.class.getClassLoader().getResource("dingo.properties").getFile());
             prop.setProperty(key, value);
-        } catch (IOException ex) {
-            System.out.println("Error setting \"" + key + "\" property.");
+            prop.store(out, null);
+            out.close();
+        } catch(Exception ex) {
+            System.out.println("Error adding property \"" + key + "\"");
             System.exit(1);
         }
     }
