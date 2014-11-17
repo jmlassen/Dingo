@@ -68,7 +68,7 @@ class DropboxService {
             String accessToken = authFinish.accessToken;
             
             PropertiesService.setDropboxAccessToken(accessToken);
-        } catch (URISyntaxException | IOException | DbxException ex) {
+        } catch (Exception ex) {
             System.out.println("Error setting up account. Please try again.");
             System.out.println(ex.toString());
             System.exit(1);
