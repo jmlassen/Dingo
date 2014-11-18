@@ -7,6 +7,7 @@ package Dingo;
  * @author Justin
  */
 public class Dingo {
+    DropboxService ds;
     /**
      * @param args the command line arguments
      */
@@ -24,7 +25,9 @@ public class Dingo {
      * @throws Exception 
      */
     private void run() throws Exception {
-        DropboxService.start();
+        // Init and start the db service.
+        ds = new DropboxService();
+        ds.start();
         
         Change change = new Change();
         XMLService xml = new XMLService();
