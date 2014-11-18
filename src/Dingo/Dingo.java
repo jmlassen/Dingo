@@ -10,10 +10,19 @@ public class Dingo {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws Exception {
-        new Dingo().run();
+    public static void main(String[] args) {
+        try {
+            new Dingo().run();
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+        
     }
 
+    /**
+     * 
+     * @throws Exception 
+     */
     private void run() throws Exception {
         DropboxService.start();
         

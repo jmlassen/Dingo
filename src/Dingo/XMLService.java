@@ -35,7 +35,7 @@ public class XMLService {
      * create an XML and add to it
      */
     public void appendLog(Change change) throws Exception {
-        String THE_FILE = "c:/success.xml"; // this will eventually have a file name here
+        String THE_FILE = "c:\\Users\\temp\\success.xml";
         
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
@@ -57,8 +57,13 @@ public class XMLService {
         TransformerFactory transfac = TransformerFactory.newInstance();
         Transformer trans = transfac.newTransformer();
         DOMSource src = new DOMSource(doc);
-        StreamResult result = new StreamResult(new File(THE_FILE));
-        
+        // TODO check if file exists.
+        File file = new File(THE_FILE);
+        if (!file.exists()) {
+            // Create file
+            file.createNewFile();
+        }
+        StreamResult result = new StreamResult(file);
         trans.transform(src, result);
     }
     
