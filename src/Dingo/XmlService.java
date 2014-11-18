@@ -19,7 +19,7 @@ import org.w3c.dom.Element;
 /**
  * @author mormon
  */
-public class XMLService {
+public class XmlService {
     
     /**
      * Make an XML document of the changes that were received
