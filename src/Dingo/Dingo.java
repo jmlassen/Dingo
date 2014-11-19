@@ -34,7 +34,7 @@ public class Dingo {
         // Get Towers from XmlService
         List<Tower> towers = xs.getTowers();
         // Init WatchTowerService
-        wts = new WatchTowerService(towers);
+        // wts = new WatchTowerService(towers);
         // Start listening.
         listen();
         System.out.println("Moving on.");
@@ -65,7 +65,7 @@ public class Dingo {
                     List<Change> changes = ds.getChanges();
                     // Check to see if we got any new changes.
                     if (changes != null) {
-                        wts.handleChanges(changes);
+                        // wts.handleChanges(changes);
                         xs.handleChanges(changes);
                     }
                 }
