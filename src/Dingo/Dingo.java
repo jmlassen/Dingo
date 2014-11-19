@@ -61,7 +61,6 @@ public class Dingo {
                         // Sleep for .5 seconds
                         Thread.sleep(threadSleep);
                     } catch (InterruptedException ex) {
-                        Logger.getLogger(Dingo.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     List<Change> changes = ds.getChanges();
                     // Check to see if we got any new changes.

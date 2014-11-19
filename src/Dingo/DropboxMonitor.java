@@ -1,37 +1,33 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Dingo;
 
 import com.dropbox.core.DbxAppInfo;
 import com.dropbox.core.DbxAuthFinish;
 import com.dropbox.core.DbxClient;
+import com.dropbox.core.DbxDelta;
+import com.dropbox.core.DbxEntry;
 import com.dropbox.core.DbxException;
 import com.dropbox.core.DbxRequestConfig;
 import com.dropbox.core.DbxWebAuthNoRedirect;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
- * @author temp
+ * @author Joel Lassen <jmlassen at gmail.com>
  */
 class DropboxMonitor {
     private DbxClient client;
+    private boolean started = false;
+    private String cursor = null;
+    
     /**
      * Starts the Dropbox service. Checks to see if the Dropbox account has been
-     * set up yet and starts listening for changes.
+     * set up, prompts the user if need be.
      */
-    void start() {
+    public void start() {
         try {
             final String APP_KEY = PropertyManager.getProperty("DropboxAppKey");
             final String APP_SECRET = PropertyManager.getProperty("DropboxAppSecret");
@@ -47,18 +43,20 @@ class DropboxMonitor {
                 System.out.println("Account not set up.");
                 linkAccount(config, appInfo);
             }
-            // Connect to the Dropbox API
+            // Init the Dropbox client
             client = new DbxClient(config, token);
+            started = true;
             // Let the user know we connected correctly.
             System.out.println("Welcome " + client.getAccountInfo().displayName);
-            
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
     /**
-     * 
+     * Prompts the user to allow Dingo to access their account. Updates the properties
+     * file with the users access token so we don't have to prompt them every time
+     * the program starts.
      * @param config
      * @param appInfo 
      */
@@ -84,10 +82,36 @@ class DropboxMonitor {
     }
 
     /**
-     * Runs a /delta check with the Dropbox api.
-     * @return 
+     * Runs a /delta check with the Dropbox API, returns back a list of changes.
+     * @return list of changes, null if no changes have occurred.
      */
-    List<Change> getChanges() {
+    public List<Change> getChanges() {
+        if (!started) {
+            start();
+        }
+        DbxDelta<DbxEntry> entries = null;
+        System.out.println("Request started.");
+        try {
+            // Call a delta request.
+            entries = client.getDelta(cursor);
+        } catch (DbxException ex) {
+            System.out.println("Error with delta request, exiting...");
+            System.exit(1);
+        }
+        for (DbxDelta.Entry<DbxEntry> entry : entries.entries) {
+            Change change = new Change();
+            change.filename = entry.metadata.path;
+            List<DbxEntry.File> foo;
+            try {
+                foo = client.getRevisions(entry.metadata.path);
+                for (DbxEntry e : foo) {
+                    System.out.println(e.toString());
+                }
+            } catch (DbxException ex) {
+                System.out.println("Error with delta revisions request, skipping...");
+            }
+        }
+        cursor = entries.cursor;
         return null;
     }
 }
