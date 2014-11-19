@@ -11,9 +11,9 @@ import java.util.logging.Logger;
  * @author Justin
  */
 public class Dingo {
-    private DropboxService ds;
+    private DropboxMonitor ds;
     private WatchTowerService wts;
-    private XmlService xs;
+    private ChangeLogger xs;
     private boolean running = true;
     private int threadSleep = 500;
     /**
@@ -24,13 +24,13 @@ public class Dingo {
     }
 
     /**
-     * Starts the DropboxService, starts our infinite loop for checking.
+     * Starts the DropboxMonitor, starts our infinite loop for checking.
      */
     public void run() {
         // Init and start the db service.
-        ds = new DropboxService();
+        ds = new DropboxMonitor();
         ds.start();
-        xs = new XmlService();
+        xs = new ChangeLogger();
         // Get Towers from XmlService
         List<Tower> towers = xs.getTowers();
         // Init WatchTowerService
@@ -39,7 +39,7 @@ public class Dingo {
         listen();
         System.out.println("Moving on.");
         Change change = new Change();
-        XmlService xml = new XmlService();
+        ChangeLogger xml = new ChangeLogger();
         try {
             xml.appendLog(change);
         } catch (Exception ex) {

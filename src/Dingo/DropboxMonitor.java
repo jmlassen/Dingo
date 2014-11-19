@@ -24,15 +24,15 @@ import java.util.logging.Logger;
  *
  * @author temp
  */
-class DropboxService {
+class DropboxMonitor {
     /**
      * Starts the Dropbox service. Checks to see if the Dropbox account has been
      * set up yet and starts listening for changes.
      */
     static void start() {
         try {
-            final String APP_KEY = PropertiesService.getProperty("DropboxAppKey");
-            final String APP_SECRET = PropertiesService.getProperty("DropboxAppSecret");
+            final String APP_KEY = PropertiesManager.getProperty("DropboxAppKey");
+            final String APP_SECRET = PropertiesManager.getProperty("DropboxAppSecret");
 
             DbxAppInfo appInfo = new DbxAppInfo(APP_KEY, APP_SECRET);
 
@@ -41,7 +41,7 @@ class DropboxService {
             
 
             // Check to see if the Dropbox account has been set up yet
-            String token = PropertiesService.getProperty("DropboxAccessToken");
+            String token = PropertiesManager.getProperty("DropboxAccessToken");
             if (token.isEmpty()) {
                 System.out.println("Account not set up.");
                 linkAccount(config, appInfo);
@@ -68,7 +68,7 @@ class DropboxService {
             DbxAuthFinish authFinish = webAuth.finish(code);
             String accessToken = authFinish.accessToken;
             
-            PropertiesService.setDropboxAccessToken(accessToken);
+            PropertiesManager.setDropboxAccessToken(accessToken);
         } catch (Exception ex) {
             System.out.println("Error setting up account. Please try again.");
             System.out.println(ex.toString());

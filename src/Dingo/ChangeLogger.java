@@ -19,7 +19,7 @@ import org.w3c.dom.Element;
 /**
  * @author mormon
  */
-public class XmlService {
+public class ChangeLogger {
     
     /**
      * Make an XML document of the changes that were received
@@ -73,6 +73,14 @@ public class XmlService {
      */
     public float getFileSize(String size) {
         return 0;
+    }
+
+    List<Tower> getTowers() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    void handleChanges(List<Change> changes) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     /**
