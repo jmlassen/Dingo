@@ -5,10 +5,71 @@
  */
 package Dingo;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
- * @author Joel Lassen <jmlassen at gmail.com>
+ * @author HEIDY2016
  */
-class Tower {
+public class Tower {
+    private File watching;
+    private List<Flag> flags;
+
+    public Tower(File watching) {
+        this.watching = watching;
+        this.flags = new ArrayList<>();
+    }
+        
+    /**
+     *
+     * @param file
+     */
+    public void setWatching (File file) {
+        this.watching = file;
+    }
     
+    /**
+     *
+     * @return file
+     */
+    public File getWatching () {
+        return watching;
+    }
+    
+    /**
+     *
+     * @return flags
+     */
+    public List<Flag> getFlags() {
+        return flags;
+    }
+    
+    /**
+     * @param flags
+     */
+    public void setFlags(List<Flag> flags) {
+        this.flags = flags;
+    }
+    
+    /**
+     * @param flag
+     */
+    public void addFlags(Flag flag) {
+        this.flags.add(flag);
+    }
+    
+    /**
+     *
+     * @param event
+     */
+    public boolean checkFlag(String event) {
+        for(Flag f:flags) {
+            if (f.getFlagType().equals(event)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
