@@ -9,14 +9,14 @@ import java.util.Properties;
  * Handles all the properties business we are going to need for Dingo.
  * @author Joel Lassen
  */
-public class PropertiesManager {
-    private static PropertiesManager instance = new PropertiesManager();
+public class PropertyManager {
+    private static PropertyManager instance = new PropertyManager();
     
     /**
      * Returns the properties service instance.
      * @return 
      */
-    public static PropertiesManager getInstance(){
+    public static PropertyManager getInstance(){
         return instance;
     }
     
@@ -96,6 +96,6 @@ public class PropertiesManager {
     /**
      * Keep from new instances being created.
      */
-    private PropertiesManager() {
+    private PropertyManager() {
     }
 }

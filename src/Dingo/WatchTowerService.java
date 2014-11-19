@@ -14,11 +14,9 @@ import java.util.List;
 class WatchTowerService {
 
     WatchTowerService(List<Tower> towers) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     void handleChanges(List<Change> changes) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
