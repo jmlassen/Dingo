@@ -40,30 +40,30 @@ public class ChangeLogger {
         // check to see of the file has been created
         boolean alreadyExists = new File(outputFile).exists();
         
-        try {
-            // this will add the comma in between each value
-            CsvWriter output = new CsvWriter(new FileWriter(outputFile, true), ',');
-            
-            // make out the header for a file that does not exist
-            if (!alreadyExists) { 
-                output.write("id");
-                output.write("name");
-                output.endRecord();
-            }
-            
-            // if the header already exists, add information
-            output.write("3");
-            output.write("Joel");
-            output.endRecord();
-            
-            output.write("4");
-            output.write("Heidy");
-            output.endRecord();
-            
-            output.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+//        try {
+//            // this will add the comma in between each value
+//            CsvWriter output = new CsvWriter(new FileWriter(outputFile, true), ',');
+//            
+//            // make out the header for a file that does not exist
+//            if (!alreadyExists) { 
+//                output.write("id");
+//                output.write("name");
+//                output.endRecord();
+//            }
+//            
+//            // if the header already exists, add information
+//            output.write("3");
+//            output.write("Joel");
+//            output.endRecord();
+//            
+//            output.write("4");
+//            output.write("Heidy");
+//            output.endRecord();
+//            
+//            output.close();
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
     }
     
     /**
