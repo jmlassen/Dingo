@@ -5,16 +5,12 @@
  */
 package Dingo;
 
-import java.io.File;
+
 import java.util.List;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import com.csvreader.CsvReader;
+import com.csvreader.CsvWriter;
+import java.io.File;
+import java.io.FileWriter;
 
 /**
  * @author mormon
@@ -32,39 +28,72 @@ public class ChangeLogger {
     }
    
     /**
-     * create an XML and add to it
+     * Once again, this is an example as to what we are going to do. It will
+     * be changed when needed.
+     * @param change
+     * @throws Exception 
      */
     public void appendLog(Change change) throws Exception {
-        String THE_FILE = "c:\\Users\\temp\\success.xml";
+        // use the write/append section under the bookmark(chrome)
+        String outputFile = "c:/output.csv";
         
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        DocumentBuilder db = dbf.newDocumentBuilder();
+        // check to see of the file has been created
+        boolean alreadyExists = new File(outputFile).exists();
         
-        // root element
-        Document doc = db.newDocument();
-        Element rootElement = doc.createElement("event");
-        doc.appendChild(rootElement);
-        
-        // file element
-        Element fileElement = doc.createElement("file");
-        rootElement.appendChild(fileElement);
-        
-        // flag element
-        Element flagElement = doc.createElement("flag");
-        fileElement.appendChild(flagElement);
-        
-        // start  the XML file
-        TransformerFactory transfac = TransformerFactory.newInstance();
-        Transformer trans = transfac.newTransformer();
-        DOMSource src = new DOMSource(doc);
-        // TODO check if file exists.
-        File file = new File(THE_FILE);
-        if (!file.exists()) {
-            // Create file
-            file.createNewFile();
+        try {
+            // this will add the comma in between each value
+            CsvWriter output = new CsvWriter(new FileWriter(outputFile, true), ',');
+            
+            // make out the header for a file that does not exist
+            if (!alreadyExists) { 
+                output.write("id");
+                output.write("name");
+                output.endRecord();
+            }
+            
+            // if the header already exists, add information
+            output.write("3");
+            output.write("Joel");
+            output.endRecord();
+            
+            output.write("4");
+            output.write("Heidy");
+            output.endRecord();
+            
+            output.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-        StreamResult result = new StreamResult(file);
-        trans.transform(src, result);
+    }
+    
+    /**
+     * As of right now this is an example as to what we are going to do, but 
+     * it will not take much to change it.
+     * @param changes
+     * @throws Exception 
+     */
+    public void readLog(Change changes) throws Exception {
+        try { 
+            CsvReader products = new CsvReader("c:/products.csv");
+            products.readHeaders();
+            while (products.readRecord()) {
+                String productID = products.get("ProductID");
+                String productName = products.get("ProductName");
+                String supplierID = products.get("SupplierID");
+                String categoryID = products.get("CategoryID");
+                String quantityPerUnit = products.get("QuantityPerUnit");
+                String unitPrice = products.get("UnitPrice");
+                String unitsInStock = products.get("UnitsInStock");
+                String unitsOnOrder = products.get("UnitsOnOrder");
+                String reorderLevel = products.get("ReorderLevel");
+                String discontinued = products.get("Discontinued");
+                
+                System.out.println(productID + ":" + productName);
+            }
+            products.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
     
     /**
