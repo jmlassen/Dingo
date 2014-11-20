@@ -7,8 +7,8 @@ package Dingo;
 
 
 import java.util.List;
-import com.csvreader.CsvReader;
-import com.csvreader.CsvWriter;
+//import com.csvreader.CsvReader;
+//import com.csvreader.CsvWriter;
 import java.io.File;
 import java.io.FileWriter;
 
@@ -73,27 +73,27 @@ public class ChangeLogger {
      * @throws Exception 
      */
     public void readLog(Change changes) throws Exception {
-        try { 
-            CsvReader products = new CsvReader("c:/products.csv");
-            products.readHeaders();
-            while (products.readRecord()) {
-                String productID = products.get("ProductID");
-                String productName = products.get("ProductName");
-                String supplierID = products.get("SupplierID");
-                String categoryID = products.get("CategoryID");
-                String quantityPerUnit = products.get("QuantityPerUnit");
-                String unitPrice = products.get("UnitPrice");
-                String unitsInStock = products.get("UnitsInStock");
-                String unitsOnOrder = products.get("UnitsOnOrder");
-                String reorderLevel = products.get("ReorderLevel");
-                String discontinued = products.get("Discontinued");
-                
-                System.out.println(productID + ":" + productName);
-            }
-            products.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+//        try { 
+//            CsvReader products = new CsvReader("c:/products.csv");
+//            products.readHeaders();
+//            while (products.readRecord()) {
+//                String productID = products.get("ProductID");
+//                String productName = products.get("ProductName");
+//                String supplierID = products.get("SupplierID");
+//                String categoryID = products.get("CategoryID");
+//                String quantityPerUnit = products.get("QuantityPerUnit");
+//                String unitPrice = products.get("UnitPrice");
+//                String unitsInStock = products.get("UnitsInStock");
+//                String unitsOnOrder = products.get("UnitsOnOrder");
+//                String reorderLevel = products.get("ReorderLevel");
+//                String discontinued = products.get("Discontinued");
+//                
+//                System.out.println(productID + ":" + productName);
+//            }
+//            products.close();
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
     }
     
     /**
