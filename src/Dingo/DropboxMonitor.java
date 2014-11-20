@@ -21,7 +21,7 @@ import java.util.Locale;
 class DropboxMonitor {
     private DbxClient client;
     private boolean started = false;
-    private String cursor = null;
+    private String cursor = PropertyManager.getProperty("dropbox.cursor");
     
     /**
      * Starts the Dropbox service. Checks to see if the Dropbox account has been
@@ -29,8 +29,8 @@ class DropboxMonitor {
      */
     public void start() {
         try {
-            final String APP_KEY = PropertyManager.getProperty("DropboxAppKey");
-            final String APP_SECRET = PropertyManager.getProperty("DropboxAppSecret");
+            final String APP_KEY = PropertyManager.getProperty("dropbox.appKey");
+            final String APP_SECRET = PropertyManager.getProperty("dropbox.appSecret");
 
             DbxAppInfo appInfo = new DbxAppInfo(APP_KEY, APP_SECRET);
 
@@ -38,7 +38,7 @@ class DropboxMonitor {
                     Locale.getDefault().toString());
             
             // Check to see if the Dropbox account has been set up yet
-            String token = PropertyManager.getProperty("DropboxAccessToken");
+            String token = PropertyManager.getProperty("dropbox.accessToken");
             if (token.isEmpty()) {
                 System.out.println("Account not set up.");
                 linkAccount(config, appInfo);
@@ -99,19 +99,18 @@ class DropboxMonitor {
             System.exit(1);
         }
         for (DbxDelta.Entry<DbxEntry> entry : entries.entries) {
-            Change change = new Change();
-            change.filename = entry.metadata.path;
-            List<DbxEntry.File> foo;
-            try {
-                foo = client.getRevisions(entry.metadata.path);
-                for (DbxEntry e : foo) {
-                    System.out.println(e.toString());
-                }
-            } catch (DbxException ex) {
-                System.out.println("Error with delta revisions request, skipping...");
+            // If this is null, it means the file has been deleted.
+            if (entry.metadata != null) {
+                Change change = new Change();
+                change.filename = entry.lcPath;
+                System.out.println(entry.metadata.toString());
+            }
+            else {
+                System.out.println(entry.lcPath + " deleted.");
             }
         }
         cursor = entries.cursor;
+        PropertyManager.setDropboxAccountCursor(cursor);
         return null;
     }
 }

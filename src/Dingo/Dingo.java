@@ -15,7 +15,7 @@ public class Dingo {
     private WatchTowerService wts;
     private ChangeLogger xs;
     private boolean running = true;
-    private int threadSleep = 500;
+    private int threadSleep = 1500;
     /**
      * @param args the command line arguments
      */

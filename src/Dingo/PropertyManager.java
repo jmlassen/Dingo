@@ -35,7 +35,15 @@ public class PropertyManager {
      * @param token 
      */
     public static void setDropboxAccessToken(String token) {
-        getInstance().setDingoProperty("DropboxAccessToken", token);
+        getInstance().setDingoProperty("dropbox.accessToken", token);
+    }
+    
+    /**
+     * 
+     * @param cursor 
+     */
+    public static void setDropboxAccountCursor(String cursor) {
+        getInstance().setDingoProperty("dropbox.cursor", cursor);
     }
     
     /**
