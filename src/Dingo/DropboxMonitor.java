@@ -100,15 +100,17 @@ class DropboxMonitor {
         }
         for (DbxDelta.Entry<DbxEntry> entry : entries.entries) {
             Change change = new Change();
-            change.filename = entry.metadata.path;
+            if (entry.metadata != null) {
+                change.filename = entry.metadata.name;
             List<DbxEntry.File> foo;
-            try {
-                foo = client.getRevisions(entry.metadata.path);
-                for (DbxEntry e : foo) {
-                    System.out.println(e.toString());
+                try {
+                    foo = client.getRevisions(entry.metadata.path);
+                    for (DbxEntry e : foo) {
+                        System.out.println(e.toString());
+                    }
+                } catch (DbxException ex) {
+                    System.out.println("Error with delta revisions request, skipping...");
                 }
-            } catch (DbxException ex) {
-                System.out.println("Error with delta revisions request, skipping...");
             }
         }
         cursor = entries.cursor;

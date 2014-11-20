@@ -5,16 +5,9 @@
  */
 package Dingo;
 
-import java.io.File;
+
 import java.util.List;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import com.csvreader.CsvReader;
 
 /**
  * @author mormon
@@ -35,36 +28,31 @@ public class ChangeLogger {
      * create an XML and add to it
      */
     public void appendLog(Change change) throws Exception {
-        String THE_FILE = "c:\\Users\\temp\\success.xml";
-        
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        DocumentBuilder db = dbf.newDocumentBuilder();
-        
-        // root element
-        Document doc = db.newDocument();
-        Element rootElement = doc.createElement("event");
-        doc.appendChild(rootElement);
-        
-        // file element
-        Element fileElement = doc.createElement("file");
-        rootElement.appendChild(fileElement);
-        
-        // flag element
-        Element flagElement = doc.createElement("flag");
-        fileElement.appendChild(flagElement);
-        
-        // start  the XML file
-        TransformerFactory transfac = TransformerFactory.newInstance();
-        Transformer trans = transfac.newTransformer();
-        DOMSource src = new DOMSource(doc);
-        // TODO check if file exists.
-        File file = new File(THE_FILE);
-        if (!file.exists()) {
-            // Create file
-            file.createNewFile();
+        // use the write/append section under the bookmark(chrome)
+    }
+    
+    public void readLog(Change changes) throws Exception {
+        try { 
+            CsvReader products = new CsvReader("c:/products.csv");
+            products.readHeaders();
+            while (products.readRecord()) {
+                String productID = products.get("ProductID");
+                String productName = products.get("ProductName");
+                String supplierID = products.get("SupplierID");
+                String categoryID = products.get("CategoryID");
+                String quantityPerUnit = products.get("QuantityPerUnit");
+                String unitPrice = products.get("UnitPrice");
+                String unitsInStock = products.get("UnitsInStock");
+                String unitsOnOrder = products.get("UnitsOnOrder");
+                String reorderLevel = products.get("ReorderLevel");
+                String discontinued = products.get("Discontinued");
+                
+                System.out.println(productID + ":" + productName);
+            }
+            products.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-        StreamResult result = new StreamResult(file);
-        trans.transform(src, result);
     }
     
     /**
