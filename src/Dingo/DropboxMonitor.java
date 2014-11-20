@@ -99,13 +99,14 @@ class DropboxMonitor {
             System.exit(1);
         }
         for (DbxDelta.Entry<DbxEntry> entry : entries.entries) {
-            // If this is null, it means the file has been deleted.
+            Change change = new Change();
+            // Check the kind of change.
             if (entry.metadata != null) {
-                Change change = new Change();
                 change.filename = entry.lcPath;
                 System.out.println(entry.metadata.toString());
             }
             else {
+                // If metadata is null, the file was deleted.
                 System.out.println(entry.lcPath + " deleted.");
             }
         }
