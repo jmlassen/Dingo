@@ -11,5 +11,5 @@ package Dingo;
 public class Change {
     
     String filename;
-    int type;
+    String type;
 }

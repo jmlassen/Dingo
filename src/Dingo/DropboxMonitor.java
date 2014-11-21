@@ -41,7 +41,10 @@ class DropboxMonitor {
             String token = PropertyManager.getProperty("dropbox.accessToken");
             if (token.isEmpty()) {
                 System.out.println("Account not set up.");
+                // Set up dropbox account.
                 linkAccount(config, appInfo);
+                // Try getting the token again.
+                token = PropertyManager.getProperty("dropbox.accessToken");
             }
             // Init the Dropbox client
             client = new DbxClient(config, token);
@@ -100,9 +103,9 @@ class DropboxMonitor {
         }
         for (DbxDelta.Entry<DbxEntry> entry : entries.entries) {
             Change change = new Change();
+            change.filename = entry.lcPath;
             // Check the kind of change.
             if (entry.metadata != null) {
-                change.filename = entry.lcPath;
                 System.out.println(entry.metadata.toString());
             }
             else {

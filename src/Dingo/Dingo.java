@@ -36,16 +36,8 @@ public class Dingo {
         // Init WatchTowerService
         // wts = new WatchTowerService(towers);
         // Start listening.
-        //listen();
+        listen();
         System.out.println("Moving on.");
-        Change change = new Change();
-        ChangeLogger xml = new ChangeLogger();
-        try {
-            xml.appendLog(change);
-            xml.readLog(change);
-        } catch (Exception ex) {
-            Logger.getLogger(Dingo.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     /**
      * Start calling the Dropbox API. We should probably consider finding a smarter
@@ -53,6 +45,9 @@ public class Dingo {
      */
     private void listen() {
         Thread t = new Thread() {
+            /**
+             * Thread to call the getChanges method in the DropboxMonitor.
+             */
           @Override  
             public void run() {
                 System.out.println("Starting an infinite loop...You can break it by"
