@@ -12,4 +12,5 @@ public class Change {
     
     String filename;
     String type;
+    Boolean isDirectory;
 }

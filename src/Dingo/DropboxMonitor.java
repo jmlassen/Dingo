@@ -11,6 +11,7 @@ import com.dropbox.core.DbxWebAuthNoRedirect;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -90,31 +91,45 @@ class DropboxMonitor {
      */
     public List<Change> getChanges() {
         if (!started) {
+            // Start the monitor if need be
             start();
         }
-        DbxDelta<DbxEntry> entries = null;
-        System.out.println("Request started.");
+        
+        DbxDelta<DbxEntry> dbxEntries = null;
+        List<Change> changes = null;
         try {
             // Call a delta request.
-            entries = client.getDelta(cursor);
+            dbxEntries = client.getDelta(cursor);
         } catch (DbxException ex) {
             System.out.println("Error with delta request, exiting...");
             System.exit(1);
         }
-        for (DbxDelta.Entry<DbxEntry> entry : entries.entries) {
+        
+        // Check to see if any changes were received
+        if (dbxEntries.entries.isEmpty()) {
+                return null;
+            }
+        changes = new ArrayList<>();
+        
+        for (DbxDelta.Entry<DbxEntry> entry : dbxEntries.entries) {
             Change change = new Change();
             change.filename = entry.lcPath;
             // Check the kind of change.
             if (entry.metadata != null) {
-                System.out.println(entry.metadata.toString());
-            }
-            else {
+                change.type = "altered";
+                change.isDirectory = entry.metadata.isFolder();
+                System.out.println(entry.metadata.toStringMultiline());
+            } else {
                 // If metadata is null, the file was deleted.
-                System.out.println(entry.lcPath + " deleted.");
+                change.type = "deleted";
             }
+            changes.add(change);
         }
-        cursor = entries.cursor;
+        
+        // Update the cursor so we don't get duplicate changes
+        cursor = dbxEntries.cursor;
         PropertyManager.setDropboxAccountCursor(cursor);
-        return null;
+        
+        return changes;
     }
 }
