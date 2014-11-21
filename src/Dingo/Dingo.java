@@ -11,11 +11,11 @@ import java.util.logging.Logger;
  * @author Justin
  */
 public class Dingo {
-    private DropboxMonitor ds;
+    private DropboxMonitor dm;
     private WatchTowerService wts;
-    private ChangeLogger xs;
+    private ChangeLogger cl;
     private boolean running = true;
-    private int threadSleep = 500;
+    private int threadSleep = 1500;
     /**
      * @param args the command line arguments
      */
@@ -28,29 +28,26 @@ public class Dingo {
      */
     public void run() {
         // Init and start the db service.
-        ds = new DropboxMonitor();
-        ds.start();
-        xs = new ChangeLogger();
+        dm = new DropboxMonitor();
+        dm.start();
+        cl = new ChangeLogger();
         // Get Towers from XmlService
-        List<Tower> towers = xs.getTowers();
+        List<Tower> towers = cl.getTowers();
         // Init WatchTowerService
-        wts = new WatchTowerService(towers);
+        // wts = new WatchTowerService(towers);
         // Start listening.
         listen();
         System.out.println("Moving on.");
-        Change change = new Change();
-        ChangeLogger xml = new ChangeLogger();
-        try {
-            xml.appendLog(change);
-        } catch (Exception ex) {
-            Logger.getLogger(Dingo.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     /**
-     * 
+     * Start calling the Dropbox API. We should probably consider finding a smarter
+     * way to determine how often we should check.
      */
     private void listen() {
         Thread t = new Thread() {
+            /**
+             * Thread to call the getChanges method in the DropboxMonitor.
+             */
           @Override  
             public void run() {
                 System.out.println("Starting an infinite loop...You can break it by"
@@ -61,13 +58,12 @@ public class Dingo {
                         // Sleep for .5 seconds
                         Thread.sleep(threadSleep);
                     } catch (InterruptedException ex) {
-                        Logger.getLogger(Dingo.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    List<Change> changes = ds.getChanges();
+                    List<Change> changes = dm.getChanges();
                     // Check to see if we got any new changes.
                     if (changes != null) {
-                        wts.handleChanges(changes);
-                        xs.handleChanges(changes);
+                        //wts.handleChanges(changes);
+                        cl.handleChanges(changes);
                     }
                 }
             }

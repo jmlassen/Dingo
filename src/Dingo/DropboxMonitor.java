@@ -1,40 +1,37 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Dingo;
 
 import com.dropbox.core.DbxAppInfo;
 import com.dropbox.core.DbxAuthFinish;
 import com.dropbox.core.DbxClient;
+import com.dropbox.core.DbxDelta;
+import com.dropbox.core.DbxEntry;
 import com.dropbox.core.DbxException;
 import com.dropbox.core.DbxRequestConfig;
 import com.dropbox.core.DbxWebAuthNoRedirect;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
-import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
- * @author temp
+ * @author Joel Lassen <jmlassen at gmail.com>
  */
 class DropboxMonitor {
     private DbxClient client;
+    private boolean started = false;
+    private String cursor = PropertyManager.getProperty("dropbox.cursor");
+    
     /**
      * Starts the Dropbox service. Checks to see if the Dropbox account has been
-     * set up yet and starts listening for changes.
+     * set up, prompts the user if need be.
      */
-    void start() {
+    public void start() {
         try {
-            final String APP_KEY = PropertyManager.getProperty("DropboxAppKey");
-            final String APP_SECRET = PropertyManager.getProperty("DropboxAppSecret");
+            final String APP_KEY = PropertyManager.getProperty("dropbox.appKey");
+            final String APP_SECRET = PropertyManager.getProperty("dropbox.appSecret");
 
             DbxAppInfo appInfo = new DbxAppInfo(APP_KEY, APP_SECRET);
 
@@ -42,23 +39,28 @@ class DropboxMonitor {
                     Locale.getDefault().toString());
             
             // Check to see if the Dropbox account has been set up yet
-            String token = PropertyManager.getProperty("DropboxAccessToken");
+            String token = PropertyManager.getProperty("dropbox.accessToken");
             if (token.isEmpty()) {
                 System.out.println("Account not set up.");
+                // Set up dropbox account.
                 linkAccount(config, appInfo);
+                // Try getting the token again.
+                token = PropertyManager.getProperty("dropbox.accessToken");
             }
-            // Connect to the Dropbox API
+            // Init the Dropbox client
             client = new DbxClient(config, token);
+            started = true;
             // Let the user know we connected correctly.
             System.out.println("Welcome " + client.getAccountInfo().displayName);
-            
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
     /**
-     * 
+     * Prompts the user to allow Dingo to access their account. Updates the properties
+     * file with the users access token so we don't have to prompt them every time
+     * the program starts.
      * @param config
      * @param appInfo 
      */
@@ -84,10 +86,50 @@ class DropboxMonitor {
     }
 
     /**
-     * Runs a /delta check with the Dropbox api.
-     * @return 
+     * Runs a /delta check with the Dropbox API, returns back a list of changes.
+     * @return list of changes, null if no changes have occurred.
      */
-    List<Change> getChanges() {
-        return null;
+    public List<Change> getChanges() {
+        if (!started) {
+            // Start the monitor if need be
+            start();
+        }
+        
+        DbxDelta<DbxEntry> dbxEntries = null;
+        List<Change> changes = null;
+        try {
+            // Call a delta request.
+            dbxEntries = client.getDelta(cursor);
+        } catch (DbxException ex) {
+            System.out.println("Error with delta request, exiting...");
+            System.exit(1);
+        }
+        
+        // Check to see if any changes were received
+        if (dbxEntries.entries.isEmpty()) {
+                return null;
+            }
+        changes = new ArrayList<>();
+        
+        for (DbxDelta.Entry<DbxEntry> entry : dbxEntries.entries) {
+            Change change = new Change();
+            change.filename = entry.lcPath;
+            // Check the kind of change.
+            if (entry.metadata != null) {
+                change.type = "altered";
+                change.isDirectory = entry.metadata.isFolder();
+                System.out.println(entry.metadata.toStringMultiline());
+            } else {
+                // If metadata is null, the file was deleted.
+                change.type = "deleted";
+            }
+            changes.add(change);
+        }
+        
+        // Update the cursor so we don't get duplicate changes
+        cursor = dbxEntries.cursor;
+        PropertyManager.setDropboxAccountCursor(cursor);
+        
+        return changes;
     }
 }
