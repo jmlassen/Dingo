@@ -80,11 +80,14 @@ public class Action {
      */
     public void run() {
          if (flag.getFlagType().equals("deletion")) {
-            // Do something. Create Log?
+            // Send email  
+            System.out.println("Sending an email: " + file.getPath() + " has been deleted");
         } else if (flag.getFlagType().equals("alteration")) {
-            // Do something
-        } else if (flag.getFlagType().equals("changeD")) {
-            // Do something
+            // Send email
+            System.out.println("Sending an email: " + file.getPath() + " has been altered");
+        } else if (flag.getFlagType().equals("changeLoc")) {
+            // Send email
+            System.out.println("Sending an email: " + file.getPath() + " has been changed");
         } else {
             System.out.println("Error: Flag is not recognized");
         }

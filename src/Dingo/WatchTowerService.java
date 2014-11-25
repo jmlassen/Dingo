@@ -9,8 +9,12 @@ import java.util.List;
  * @author HEIDY2016
  */
 public class WatchTowerService {
-    private List<Tower> towers = new ArrayList<>();
-   
+    private List<Tower> towers;
+    
+    public WatchTowerService(List<Tower> towers) {
+        this.towers = new ArrayList<>();
+        this.towers = towers;
+    }   
     
     /**
      * 
@@ -21,35 +25,26 @@ public class WatchTowerService {
     }
         
     /**
-     *
-     * @param file
-     * @param flag
+     *    
+     * @param changes
      */
-    public void handleEvent(File file, Flag flag) {
-        
-        for (Tower t:towers) {
-            if (t.getWatching() == file) {
-                // if the flag matches one of the flags we want to watch for that file
-                // then we want to send a logEvent and handle the event
-                if (t.checkFlag(flag.getFlagType())) {
-                    logEvent(file, flag);
-                    List <Flag> tmpFlags = t.getFlags();
-                    for (Flag f: tmpFlags) {
-                        if (f.getFlagType().equals(flag.getFlagType())) {
-                            flag.handleFlag(flag.getFlagType());
+    public void handleChanges(List<Change> changes) {
+        for (Change ch: changes) {
+            String filename = ch.getFilename();
+           for (Tower t:towers) {
+                // Find the file in the list of files been watched
+                if (t.getWatching().getPath().equals(filename)) {
+                    if (t.checkFlag(filename)) {
+                        //logEvent(file, flag);
+                        List <Flag> tmpFlags = t.getFlags();
+                        for (Flag f: tmpFlags) {
+                            if (f.getFlagType().equals(filename)) {
+                                f.handleFlag(ch.getType());
+                            }
                         }
                     }
-                }
-            }
-        }
-    }
-    
-    /**
-     *
-     * @param file
-     * @param flag
-     */
-    public void logEvent(File file, Flag flag) {
-        // What exactly is the log? -> xmlService
+                }            
+           }
+       }
     }
 }              

@@ -10,7 +10,34 @@ package Dingo;
  */
 public class Change {
     
-    String filename;
-    String type;
-    Boolean isDirectory;
+    private String filename;
+    private String type; // deletion, alteration, or changeLoc
+    
+    /**
+    * @return filename
+    */
+    public String getFilename() {
+        return filename;
+    }
+    
+    /**
+    * @param filename
+    */
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    /**
+    * @return type
+    */
+    public String getType() {
+        return type;
+    }
+    
+    /**
+    * @param type
+    */
+    public void setType(String type) {
+        this.type = type;
+    }            
 }
