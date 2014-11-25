@@ -113,15 +113,14 @@ class DropboxMonitor {
         
         for (DbxDelta.Entry<DbxEntry> entry : dbxEntries.entries) {
             Change change = new Change();
-            change.filename = entry.lcPath;
+            change.setFilename(entry.lcPath);
             // Check the kind of change.
             if (entry.metadata != null) {
-                change.type = "altered";
-                change.isDirectory = entry.metadata.isFolder();
+                change.setType("altered");
                 System.out.println(entry.metadata.toStringMultiline());
             } else {
                 // If metadata is null, the file was deleted.
-                change.type = "deleted";
+                change.setType("deleted");
             }
             changes.add(change);
         }
