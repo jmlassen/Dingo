@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 public class Dingo {
     private DropboxMonitor dm;
     private WatchTowerService wts;
-    private ChangeLogger cl;
+    private ChangeJournal cl;
     private boolean running = true;
     private int threadSleep = 1500;
     /**
@@ -30,7 +30,7 @@ public class Dingo {
         // Init and start the db service.
         dm = new DropboxMonitor();
         dm.start();
-        cl = new ChangeLogger();
+        cl = new ChangeJournal();
         // Get Towers from XmlService
         List<Tower> towers = cl.getTowers();
         // Init WatchTowerService

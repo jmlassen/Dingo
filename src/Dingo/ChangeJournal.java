@@ -15,7 +15,7 @@ import java.io.FileWriter;
 /**
  * @author mormon
  */
-public class ChangeLogger {
+public class ChangeJournal {
     
     /**
      * Make an XML document of the changes that were received
