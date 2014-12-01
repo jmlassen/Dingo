@@ -61,7 +61,6 @@ public class Dingo {
                         cl.handleChanges(changes);
                     }
                     try {
-                        // Sleep for .5 seconds
                         Thread.sleep(threadSleep);
                     } catch (InterruptedException ex) {
                     }
