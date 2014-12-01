@@ -36,8 +36,8 @@ public class Dingo {
         // Init WatchTowerService
         // wts = new WatchTowerService(towers);
         // Start listening.
-        listen();
-        System.out.println("Moving on.");
+        //listen();
+        //System.out.println("Moving on.");
     }
     /**
      * Start calling the Dropbox API. We should probably consider finding a smarter

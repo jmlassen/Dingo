@@ -9,11 +9,16 @@ package Dingo;
 import java.util.List;
 import java.io.File;
 import java.io.FileWriter;
+import java.sql.*;
 
 /**
  * @author mormon
  */
 public class ChangeJournal {
+    
+    ChangeJournal() {
+        createDatabase();
+    }
     
     /**
      * Make an XML document of the changes that were received
@@ -23,6 +28,55 @@ public class ChangeJournal {
      */
     public List<Change> getLastChanges(List<Change> change) throws Exception {
         return null;   
+    }
+    
+    /**
+     * 
+     */
+    public void createDatabase() {
+        Connection connect = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            connect = DriverManager.getConnection("jdbc:sqlite:dingo.db");
+        } catch ( Exception e ) {
+        System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        System.exit(0);
+        }
+      System.out.println("Database is open!!!!");
+      
+      createTable();
+    }
+    
+    /**
+     * 
+     */
+    public void createTable() { 
+        Connection connect = null;
+        Statement statement = null;
+    try {
+      Class.forName("org.sqlite.JDBC");
+      connect = DriverManager.getConnection("jdbc:sqlite:dingo.db");
+      System.out.println("Opened database successfully");
+
+      statement = connect.createStatement();
+      String sql = "CREATE TABLE IF NOT EXISTS jeff " +
+                   "(ID             INTEGER     PRIMARY KEY     AUTOINCREMENT," +
+                   " FILENAME       TEXT                        NOT NULL," + 
+                   " TYPE           TEXT                        NOT NULL," + 
+                   " IS_DIRECTORY   BOOLEAN                     ," + 
+                   " DATE_MODIFIED  DATETIME                    ," +    
+                   " REVISION       TEXT                        )"; 
+      statement.executeUpdate(sql);
+      sql = "INSERT INTO jeff (FILENAME, TYPE, IS_DIRECTORY) " +
+            "VALUES ('file', 'deletion', 0)";
+      statement.executeUpdate(sql);
+      statement.close();
+      connect.close();
+    } catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
+    }
+        System.out.println("Table created!!!!");
     }
    
     /**
