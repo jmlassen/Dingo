@@ -12,6 +12,7 @@ public class Change {
     
     private String filename;
     private String type; // deletion, alteration, or changeLoc
+    private boolean isDirectory;
     
     /**
     * @return filename
@@ -40,4 +41,14 @@ public class Change {
     public void setType(String type) {
         this.type = type;
     }            
+
+    public boolean isIsDirectory() {
+        return isDirectory;
+    }
+
+    public void setIsDirectory(boolean isDirectory) {
+        this.isDirectory = isDirectory;
+    }
+    
+    
 }

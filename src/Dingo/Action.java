@@ -15,6 +15,7 @@ public class Action {
     private String action;
     private Flag flag;
     private File file;
+    private String type;
     
     /**
      * @param action
@@ -79,7 +80,13 @@ public class Action {
      *
      */
     public void run() {
-         if (flag.getFlagType().equals("deletion")) {
+         if (type.equals("email")) {
+             email();
+         }
+    }
+    
+    public void email() {
+        if (flag.getFlagType().equals("deletion")) {
             // Send email  
             System.out.println("Sending an email: " + file.getPath() + " has been deleted");
         } else if (flag.getFlagType().equals("alteration")) {
