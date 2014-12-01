@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="778.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="778.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
         <URL value="@dingogui.css" />
     </stylesheets>
@@ -61,6 +61,5 @@
           </Menu>
         </menus>
       </MenuBar>
-      <TextFlow layoutX="11.0" layoutY="32.0" prefHeight="354.0" prefWidth="756.0" />
    </children>
 </AnchorPane>

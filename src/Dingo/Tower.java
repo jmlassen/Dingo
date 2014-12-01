@@ -73,6 +73,10 @@ public class Tower {
         return false;
     }
 
+    /**
+     * 
+     * @param change 
+     */
     void handleChange(Change change) {
         throw new UnsupportedOperationException("Not supported yet.");
     }

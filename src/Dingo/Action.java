@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Dingo;
 
 import java.io.File;
@@ -75,25 +70,30 @@ public class Action {
     public void setFile(File file) {
         this.file = file;
     }
-            
-    /***********************************************************
-     *
+    
+    /**
+     * 
      */
     public void run() {
         if (action.equals("email")) {
-            email();
+            sendEmail();
+        } else if (action.equals("")) {
+            
         }
     }
     
-    public void email() {
+    /**
+     * 
+     */
+    public void sendEmail() {
         if (flag.getFlagType().equals("deletion")) {
-            // Send email  
+            // Send sendEmail  
             System.out.println("Sending an email: " + file.getPath() + " has been deleted");
         } else if (flag.getFlagType().equals("alteration")) {
-            // Send email
+            // Send sendEmail
             System.out.println("Sending an email: " + file.getPath() + " has been altered");
         } else if (flag.getFlagType().equals("changeLoc")) {
-            // Send email
+            // Send sendEmail
             System.out.println("Sending an email: " + file.getPath() + " has been changed");
         } else {
             System.out.println("Error: Flag is not recognized");
