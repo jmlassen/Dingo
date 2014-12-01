@@ -14,7 +14,7 @@ import java.util.Date;
 public class Change {
     
     private String filename;
-    private String type;    // deletion, alteration, or changeLoc
+    private String type;    // deletion, alteration
     private boolean isDirectory;
     private Date modified;
     private String revision;   // This will probably be useful later...

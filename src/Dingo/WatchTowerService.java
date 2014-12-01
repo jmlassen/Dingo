@@ -29,22 +29,12 @@ public class WatchTowerService {
      */
     public void handleChanges(List<Change> changes) {
         for (Change change: changes) {
-            String filename = change.getFilename();
             // Loop through each of our towers
             for (Tower tower:towers) {
                 // Find the file in the list of files been watched
-                if (tower.getWatching().getPath().equals(filename)) {
+                if (tower.getWatching().getPath().equals(change.getFilename())) {
                     // Let the tower handle the change
                     tower.handleChange(change);
-                    
-                    if (tower.checkFlag(filename)) {
-                        List <Flag> tmpFlags = tower.getFlags();
-                        for (Flag f: tmpFlags) {
-                            if (f.getFlagType().equals(filename)) {
-                                f.handleFlag(change.getType());
-                            }
-                        }
-                    }
                 }            
             }
         }
