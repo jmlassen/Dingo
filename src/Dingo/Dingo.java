@@ -54,16 +54,16 @@ public class Dingo {
                 + " manually stoping the thread.");
                 // Start the infinate loop
                 while (running) {       
-                    try {
-                        // Sleep for .5 seconds
-                        Thread.sleep(threadSleep);
-                    } catch (InterruptedException ex) {
-                    }
                     List<Change> changes = dm.getChanges();
                     // Check to see if we got any new changes.
                     if (changes != null) {
                         //wts.handleChanges(changes);
                         cl.handleChanges(changes);
+                    }
+                    try {
+                        // Sleep for .5 seconds
+                        Thread.sleep(threadSleep);
+                    } catch (InterruptedException ex) {
                     }
                 }
             }

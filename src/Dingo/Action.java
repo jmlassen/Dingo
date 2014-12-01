@@ -10,6 +10,7 @@ import java.io.File;
 /**
  *
  * @author HEIDY2016
+ * @author Joel Lassen <jmlassen at gmail.com>
  */
 public class Action {
     private String action;
@@ -80,9 +81,9 @@ public class Action {
      *
      */
     public void run() {
-         if (type.equals("email")) {
-             email();
-         }
+        if (type.equals("email")) {
+            email();
+        }
     }
     
     public void email() {
