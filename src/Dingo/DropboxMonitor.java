@@ -117,7 +117,6 @@ class DropboxMonitor {
             // Check the kind of change.
             if (entry.metadata != null) {
                 change.setType("altered");
-                change.setIsDirectory(entry.metadata.isFolder());
                 System.out.println(entry.metadata.toStringMultiline());
             } else {
                 // If metadata is null, the file was deleted.
