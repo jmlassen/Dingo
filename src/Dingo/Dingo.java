@@ -34,9 +34,9 @@ public class Dingo {
         // Get Towers from XmlService
         List<Tower> towers = cl.getTowers();
         // Init WatchTowerService
-        // wts = new WatchTowerService(towers);
+        wts = new WatchTowerService(towers);
         // Start listening.
-        //listen();
+        listen();
         //System.out.println("Moving on.");
     }
     /**
