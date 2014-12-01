@@ -53,8 +53,7 @@ class DropboxMonitor {
             // Let the user know we connected correctly.
             System.out.println("Welcome " + client.getAccountInfo().displayName);
         } catch (Exception ex) {
-            ex.printStackTrace();
-            // Exit program if connection has issues.
+            System.out.println("Error connecting to API. Make sure key and secret properties are correct.");
             System.exit(1);
         }
     }
@@ -66,7 +65,7 @@ class DropboxMonitor {
      * @param config
      * @param appInfo 
      */
-    private static void linkAccount(DbxRequestConfig config, DbxAppInfo appInfo) {
+    private void linkAccount(DbxRequestConfig config, DbxAppInfo appInfo) {
         try {
             DbxWebAuthNoRedirect webAuth = new DbxWebAuthNoRedirect(config, appInfo);
             String uriStr = webAuth.start();
@@ -82,7 +81,7 @@ class DropboxMonitor {
             PropertyManager.setDropboxAccessToken(accessToken);
         } catch (Exception ex) {
             System.out.println("Error setting up account. Please try again.");
-            System.out.println(ex.toString());
+            ex.printStackTrace();
             System.exit(1);
         }
     }
@@ -118,11 +117,18 @@ class DropboxMonitor {
             change.setFilename(entry.lcPath);
             // Check the kind of change.
             if (entry.metadata != null) {
-                change.setType("altered");
-                System.out.println(entry.metadata.toStringMultiline());
+                //If there is metadata, we can get some more info
+                change.setType("alteration");
+                if (entry.metadata.isFolder()) {
+                    change.setIsDirectory(true);
+                } else {
+                    change.setIsDirectory(false);
+                    change.setModified(entry.metadata.asFile().clientMtime);
+                    change.setRevision(entry.metadata.asFile().rev);
+                }
             } else {
                 // If metadata is null, the file was deleted.
-                change.setType("deleted");
+                change.setType("deletion");
             }
             changes.add(change);
         }

@@ -16,7 +16,6 @@ public class Action {
     private String action;
     private Flag flag;
     private File file;
-    private String type;
     
     /**
      * @param action
@@ -81,7 +80,7 @@ public class Action {
      *
      */
     public void run() {
-        if (type.equals("email")) {
+        if (action.equals("email")) {
             email();
         }
     }
