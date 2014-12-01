@@ -54,6 +54,8 @@ class DropboxMonitor {
             System.out.println("Welcome " + client.getAccountInfo().displayName);
         } catch (Exception ex) {
             ex.printStackTrace();
+            // Exit program if connection has issues.
+            System.exit(1);
         }
     }
 
