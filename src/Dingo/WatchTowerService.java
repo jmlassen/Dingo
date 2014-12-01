@@ -1,6 +1,5 @@
 package Dingo;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,22 +28,25 @@ public class WatchTowerService {
      * @param changes
      */
     public void handleChanges(List<Change> changes) {
-        for (Change ch: changes) {
-            String filename = ch.getFilename();
-           for (Tower t:towers) {
+        for (Change change: changes) {
+            String filename = change.getFilename();
+            // Loop through each of our towers
+            for (Tower tower:towers) {
                 // Find the file in the list of files been watched
-                if (t.getWatching().getPath().equals(filename)) {
-                    if (t.checkFlag(filename)) {
-                        //logEvent(file, flag);
-                        List <Flag> tmpFlags = t.getFlags();
+                if (tower.getWatching().getPath().equals(filename)) {
+                    // Let the tower handle the change
+                    tower.handleChange(change);
+                    
+                    if (tower.checkFlag(filename)) {
+                        List <Flag> tmpFlags = tower.getFlags();
                         for (Flag f: tmpFlags) {
                             if (f.getFlagType().equals(filename)) {
-                                f.handleFlag(ch.getType());
+                                f.handleFlag(change.getType());
                             }
                         }
                     }
                 }            
-           }
-       }
+            }
+        }
     }
 }              

@@ -117,7 +117,7 @@ class DropboxMonitor {
             change.setFilename(entry.lcPath);
             // Check the kind of change.
             if (entry.metadata != null) {
-                //If there is metadata, we can get some more info
+                //If there is metadata, we can get some more data
                 change.setType("alteration");
                 if (entry.metadata.isFolder()) {
                     change.setIsDirectory(true);
