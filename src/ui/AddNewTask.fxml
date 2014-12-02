@@ -33,11 +33,11 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <CheckBox id="modifiedChkBx" layoutX="19.0" layoutY="48.0" mnemonicParsing="false" text="File Modified" />
-                        <CheckBox id="deletedChkBx" layoutX="19.0" layoutY="107.0" mnemonicParsing="false" text="File Deleted" />
-                        <CheckBox id="movedChkBx" disable="true" layoutX="19.0" layoutY="78.0" mnemonicParsing="false" text="File Moved" />
+                        <CheckBox id="modifiedChkBx" layoutX="19.0" layoutY="49.0" mnemonicParsing="false" text="File Modified" />
+                        <CheckBox id="deletedChkBx" layoutX="19.0" layoutY="111.0" mnemonicParsing="false" text="File Deleted" />
+                        <CheckBox id="movedChkBx" disable="true" layoutX="19.0" layoutY="80.0" mnemonicParsing="false" text="File Moved" />
                         <CheckBox id="createdChkBx" disable="true" layoutX="19.0" layoutY="19.0" mnemonicParsing="false" text="File Created" />
-                        <Label layoutX="19.0" layoutY="139.0" text="NOTE: Disabled check boxes are features which have not been implemented yet." />
+                        <Label layoutX="19.0" layoutY="149.0" text="NOTE: Disabled check boxes are features which have not been implemented yet." />
                      </children>
                   </AnchorPane>
             </content>
