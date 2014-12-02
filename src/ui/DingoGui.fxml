@@ -61,5 +61,11 @@
           </Menu>
         </menus>
       </MenuBar>
+      <TableView layoutY="27.0" prefHeight="251.0" prefWidth="448.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>
