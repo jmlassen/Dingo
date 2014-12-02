@@ -70,30 +70,41 @@ public class Action {
     public void setFile(File file) {
         this.file = file;
     }
-    
+            
     /**
-     * 
+     *
      */
     public void run() {
         if (action.equals("email")) {
-            sendEmail();
+            email();
         } else if (action.equals("")) {
             
         }
     }
     
     /**
-     * 
+     * The method sends an email notification to the indicated recipient (to)
+     * according to the current flag
+     * @param to
      */
-    public void sendEmail() {
+    public void email() {
+        
+        SendEmail email;
+        
         if (flag.getFlagType().equals("deletion")) {
-            // Send sendEmail  
+            // Create an email instance for a deletion notification
+            email = new SendEmail(file.getPath() + " has been deleted in the Dropbox", flag.getTo());
+            email.run();
             System.out.println("Sending an email: " + file.getPath() + " has been deleted");
         } else if (flag.getFlagType().equals("alteration")) {
-            // Send sendEmail
+            // Create an email instance for an alteration notification
+            email = new SendEmail(file.getPath() + " has been altered in the Dropbox", flag.getTo());
+            email.run();
             System.out.println("Sending an email: " + file.getPath() + " has been altered");
         } else if (flag.getFlagType().equals("changeLoc")) {
-            // Send sendEmail
+            // Create an email instance for a change of Location notification
+            email = new SendEmail(file.getPath() + " has changed location in the Dropbox", flag.getTo());
+            email.run();
             System.out.println("Sending an email: " + file.getPath() + " has been changed");
         } else {
             System.out.println("Error: Flag is not recognized");
