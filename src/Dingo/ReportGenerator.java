@@ -11,7 +11,7 @@ import java.io.File;
  *
  * @author mormon
  */
-public class ReportService {
+public class ReportGenerator {
     
     private int defaultChanges;
     
