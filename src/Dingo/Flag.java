@@ -15,6 +15,8 @@ import java.util.List;
 public class Flag {
     // flagType can be deletion, alteration, and changeDirectory
     private String flagType;
+    // Recipient of the email notification for this flag
+    private String to;  
     // There is a different action(reaction) for each flagType
     private List<Action> actions;
     
@@ -22,8 +24,9 @@ public class Flag {
      * Constructor
      * @param flagType
      */
-    public Flag(String flagType) {
+    public Flag(String flagType, String to) {
         this.flagType = flagType;
+        this.to = to;
         actions = new ArrayList<>();
     }        
     
@@ -75,6 +78,24 @@ public class Flag {
             runAction();
         }
     }
+    
+    /**
+     * getter for the recipient of the email notification
+     * @return 
+     */
+    public String getTo() {
+        return to;
+    }
+
+    /*
+    * set the recipient of the email notification
+    * @param to
+    */
+    public void setTo(String to) {
+        this.to = to;
+    }
+    
+    
     
     /**
      *
