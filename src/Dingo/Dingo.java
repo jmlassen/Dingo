@@ -18,38 +18,7 @@ public class Dingo {
     private int threadSleep = 1500;
     
     /**
-     * 
-     * @return 
-     */
-    public boolean isListening() {
-        return listening;
-    }
-
-    /**
-     * 
-     * @param listening 
-     */
-    public void setListening(boolean listening) {
-        this.listening = listening;
-    }
-
-    /**
-     * 
-     * @return 
-     */
-    public int getThreadSleep() {
-        return threadSleep;
-    }
-
-    /**
-     * 
-     * @param threadSleep 
-     */
-    public void setThreadSleep(int threadSleep) {
-        this.threadSleep = threadSleep;
-    }
-    
-    /**
+     * This needs to be moved.
      * @param args the command line arguments
      */
     public static void main(String[] args) {
@@ -57,13 +26,14 @@ public class Dingo {
     }
 
     /**
-     * Starts the DropboxMonitor, starts our infinite loop for checking.
+     * Checks to see if we are the only instance running. Starts the GUI.
+     * Starts the DropBox monitor and creates the ChangeJournal and
+     * WatchTowerService objects. Calls the method that starts the listening
+     * thread loop.
      */
     public void run() {
         // Check to make sure there is only one instance listening
         checkInstance();
-        // TODO: Start the GUI.
-        
         // Init and start the db service.
         dm = new DropboxMonitor();
         dm.start();
@@ -77,7 +47,7 @@ public class Dingo {
     }
     
     /**
-     * Start calling the Dropbox API. We should probably consider finding a smarter
+     * Start calling the DropBox API. We should probably consider finding a smarter
      * way to determine how often we should check.
      */
     private void listen() {
@@ -119,5 +89,45 @@ public class Dingo {
             System.out.println("Program already running, exiting");
             System.exit(1);
         }
+    }
+    
+    /**
+     * Returns the towers in the WatchTowerService.
+     * @return 
+     */
+    public List<Tower> getTasks() {
+        return wts.getTowers();
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public boolean isListening() {
+        return listening;
+    }
+
+    /**
+     * 
+     * @param listening 
+     */
+    public void setListening(boolean listening) {
+        this.listening = listening;
+    }
+
+    /**
+     * 
+     * @return 
+     */
+    public int getThreadSleep() {
+        return threadSleep;
+    }
+
+    /**
+     * 
+     * @param threadSleep 
+     */
+    public void setThreadSleep(int threadSleep) {
+        this.threadSleep = threadSleep;
     }
 }

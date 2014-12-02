@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="323.0" prefWidth="484.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="323.0" prefWidth="484.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.DingoGuiController">
    <children>
       <TabPane prefHeight="283.0" prefWidth="484.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -61,7 +61,7 @@
             </Tab>
         </tabs>
       </TabPane>
-      <Button layoutX="332.0" layoutY="289.0" mnemonicParsing="false" prefHeight="12.0" prefWidth="65.0" text="OK" />
+      <Button fx:id="okBtn" layoutX="332.0" layoutY="289.0" mnemonicParsing="false" prefHeight="12.0" prefWidth="65.0" text="OK" />
       <Button layoutX="404.0" layoutY="289.0" mnemonicParsing="false" prefHeight="12.0" prefWidth="65.0" text="Cancel" />
    </children>
 </AnchorPane>

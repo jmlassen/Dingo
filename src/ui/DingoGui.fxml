@@ -9,12 +9,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="778.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="778.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.DingoGuiController">
     <stylesheets>
         <URL value="@dingogui.css" />
     </stylesheets>
    <children>
-      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="778.0">
+      <MenuBar layoutY="-1.0" prefHeight="25.0" prefWidth="778.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
                <items>
@@ -30,7 +30,7 @@
                   </MenuItem>
                   <MenuItem disable="true" mnemonicParsing="false" text="Start Listening" />
                   <MenuItem mnemonicParsing="false" text="Stop Listening" />
-                  <MenuItem mnemonicParsing="false" text="Exit" />
+                  <MenuItem mnemonicParsing="false" text="Close GUI" />
                </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
@@ -63,11 +63,15 @@
           </Menu>
         </menus>
       </MenuBar>
-      <TableView layoutY="27.0" prefHeight="251.0" prefWidth="448.0">
+      <TableView id="tasksTblView" layoutY="23.0" prefHeight="348.0" prefWidth="778.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn prefWidth="120.0" text="Name" />
+          <TableColumn minWidth="0.0" prefWidth="302.0" text="File" />
+            <TableColumn prefWidth="355.0" text="Notes" />
         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
    </children>
 </AnchorPane>
