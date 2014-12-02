@@ -15,7 +15,7 @@ import java.util.List;
 public class Flag {
     // flagType can be deletion, alteration, and changeDirectory
     private String flagType;
-    // Recipient of the email notification for this flag
+    // Recipient of the sendEmail notification for this flag
     private String to;  
     // There is a different action(reaction) for each flagType
     private List<Action> actions;
@@ -80,7 +80,7 @@ public class Flag {
     }
     
     /**
-     * getter for the recipient of the email notification
+     * getter for the recipient of the sendEmail notification
      * @return 
      */
     public String getTo() {
@@ -88,7 +88,7 @@ public class Flag {
     }
 
     /*
-    * set the recipient of the email notification
+    * set the recipient of the sendEmail notification
     * @param to
     */
     public void setTo(String to) {

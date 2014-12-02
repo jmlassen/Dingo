@@ -14,14 +14,14 @@ import javax.mail.internet.*;
  * @author HEIDY2016
  */
 
-public class SendEmail {
+public class Email {
     private String from;  // GMail user name (just the part before "@gmail.com")
     private String pass;  // GMail password
     private String to;    // Email recipient does not have to be from gmail
     private String subject;
     private String body;
     
-    public SendEmail(String body, String to ) {
+    public Email(String body, String to ) {
         this.from = PropertyManager.getProperty("dropbox.senderUsername");
         this.pass = PropertyManager.getProperty("dropbox.senderPassword");         
         this.subject = "Alert Notification from Dingo";
@@ -31,7 +31,7 @@ public class SendEmail {
     
 //    public static void main(String[] args) {
 //        
-//        SendEmail email = new SendEmail("It works!", "cespedesheidy@gmail.com");
+//        Email email = new Email("It works!", "cespedesheidy@gmail.com");
 //        email.run();
 //    }
     

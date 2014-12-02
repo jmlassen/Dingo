@@ -81,7 +81,6 @@ class DropboxMonitor {
             PropertyManager.setDropboxAccessToken(accessToken);
         } catch (Exception ex) {
             System.out.println("Error setting up account. Please try again.");
-            ex.printStackTrace();
             System.exit(1);
         }
     }
