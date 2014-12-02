@@ -22,7 +22,15 @@ public class WatchTowerService {
     public void addTower (Tower tower) {  
         towers.add(tower);
     }
-        
+    
+    /**
+     * Return back our towers, for the GUI.
+     * @return 
+     */
+    public List<Tower> getTowers() {
+        return towers;
+    }
+    
     /**
      *    
      * @param changes

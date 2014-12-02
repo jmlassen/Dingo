@@ -28,6 +28,8 @@
                         <KeyCodeCombination alt="UP" code="I" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
+                  <MenuItem disable="true" mnemonicParsing="false" text="Start Listening" />
+                  <MenuItem mnemonicParsing="false" text="Stop Listening" />
                   <MenuItem mnemonicParsing="false" text="Exit" />
                </items>
           </Menu>
