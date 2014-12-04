@@ -100,30 +100,6 @@ public class ChangeJournal {
         } catch (Exception e) {
         }
     }
-   
-    /**
-     * Once again, this is an example as to what we are going to do. It will
-     * be changed when needed.
-     * @param change
-     * @throws Exception 
-     */
-    public void appendLog(Change change) throws Exception {
-        // use the write/append section under the bookmark(chrome)
-        String outputFile = "c:/output.csv";
-        
-        // check to see of the file has been created
-        boolean alreadyExists = new File(outputFile).exists();
-    }
-    
-    /**
-     * As of right now this is an example as to what we are going to do, but 
-     * it will not take much to change it.
-     * @param changes
-     * @throws Exception 
-     */
-    public void readLog(Change changes) throws Exception {
-        
-    }
     
     /**
      * @param size
