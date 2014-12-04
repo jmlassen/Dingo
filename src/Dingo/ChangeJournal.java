@@ -59,15 +59,16 @@ public class ChangeJournal {
       System.out.println("Opened database successfully");
 
       statement = connect.createStatement();
-      String sql = "CREATE TABLE IF NOT EXISTS jeff " +
+      String sql = "CREATE TABLE IF NOT EXISTS log " +
                    "(ID             INTEGER     PRIMARY KEY     AUTOINCREMENT," +
                    " FILENAME       TEXT                        NOT NULL," + 
                    " TYPE           TEXT                        NOT NULL," + 
                    " IS_DIRECTORY   BOOLEAN                     ," + 
                    " DATE_MODIFIED  DATETIME                    ," +    
-                   " REVISION       TEXT                        )"; 
+                   " REVISION       TEXT                        ," + 
+                   " TIMSTAMP       DATETIME    DEFAULT         CURRENT_TIMESTAMP)"; 
       statement.executeUpdate(sql);
-      sql = "INSERT INTO jeff (FILENAME, TYPE, IS_DIRECTORY) " +
+      sql = "INSERT INTO log (FILENAME, TYPE, IS_DIRECTORY) " +
             "VALUES ('file', 'deletion', 0)";
       statement.executeUpdate(sql);
       statement.close();
