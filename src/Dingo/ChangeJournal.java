@@ -76,7 +76,7 @@ public class ChangeJournal {
     /**
      * 
      */
-    public void insertIntoTable() {
+    public void insertIntoJournal() {
         Change change = new Change();
         Connection connect = null;
         Statement statement = null;
@@ -105,6 +105,10 @@ public class ChangeJournal {
         return 0;
     }
 
+    /**
+     * 
+     * @return 
+     */
     List<Tower> getTowers() {
         return null;
     }
@@ -114,7 +118,7 @@ public class ChangeJournal {
      * @param changes 
      */
     void handleChanges(List<Change> changes) {
-        insertIntoTable();
+        insertIntoJournal();
     }
     
     /**
