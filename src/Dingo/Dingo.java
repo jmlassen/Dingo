@@ -64,8 +64,12 @@ public class Dingo {
                     List<Change> changes = dm.getChanges();
                     // Check to see if we got any new changes.
                     if (changes != null) {
-                        wts.handleChanges(changes);
-                        cl.handleChanges(changes);
+                        try {
+                            wts.handleChanges(changes);
+                            cl.handleChanges(changes);
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
                     }
                     try {
                         Thread.sleep(threadSleep);
