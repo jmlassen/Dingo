@@ -50,7 +50,7 @@ public class ChangeJournal {
     /**
      * 
      */
-    public void createTable() { 
+    public void createTable() {
         Connection connect = null;
         Statement statement = null;
     try {
@@ -59,7 +59,7 @@ public class ChangeJournal {
       System.out.println("Opened database successfully");
 
       statement = connect.createStatement();
-      String sql = "CREATE TABLE IF NOT EXISTS log " +
+      String sql = "CREATE TABLE IF NOT EXISTS change_journal " +
                    "(ID             INTEGER     PRIMARY KEY     AUTOINCREMENT," +
                    " FILENAME       TEXT                        NOT NULL," + 
                    " TYPE           TEXT                        NOT NULL," + 
@@ -68,9 +68,6 @@ public class ChangeJournal {
                    " REVISION       TEXT                        ," + 
                    " TIMSTAMP       DATETIME    DEFAULT         CURRENT_TIMESTAMP)"; 
       statement.executeUpdate(sql);
-      sql = "INSERT INTO log (FILENAME, TYPE, IS_DIRECTORY) " +
-            "VALUES ('file', 'deletion', 0)";
-      statement.executeUpdate(sql);
       statement.close();
       connect.close();
     } catch ( Exception e ) {
@@ -78,6 +75,30 @@ public class ChangeJournal {
       System.exit(0);
     }
         System.out.println("Table created!!!!");
+    }
+    
+    /**
+     * 
+     */
+    public void insertIntoTable() {
+        Change change = new Change();
+        Connection connect = null;
+        Statement statement = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            connect = DriverManager.getConnection("jdbc:sqlite:dingo.db");
+            connect.setAutoCommit(false);
+            
+            statement = connect.createStatement();
+            String insertStatement = "INSERT INTO change_journal (FILENAME, TYPE, IS_DIRECTORY)" + 
+                                     "VALUES ('" + change.getFilename() + "', " + change.getType() + "', " + change.isDirectory() + ");";
+            statement.executeUpdate(insertStatement);
+            
+            statement.close();
+            connect.commit();
+            connect.close();
+        } catch (Exception e) {
+        }
     }
    
     /**
