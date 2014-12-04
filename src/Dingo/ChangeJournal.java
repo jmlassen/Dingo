@@ -86,7 +86,8 @@ public class ChangeJournal {
             
             statement = connect.createStatement();
             String insertStatement = "INSERT INTO change_journal (FILENAME, TYPE, IS_DIRECTORY) " + 
-                                     "VALUES ('" + change.getFilename() + "', '" + change.getType() + "'," + " CAST('" + change.isDirectory() + "' AS INT));";
+                                     "VALUES ('" + change.getFilename() + "', '" + change.getType() + 
+                                     "'," + " CAST('" + change.isDirectory() + "' AS INT));";
             System.out.println(insertStatement);
             statement.executeUpdate(insertStatement);
             
