@@ -42,8 +42,6 @@ public class ChangeJournal {
         System.err.println( e.getClass().getName() + ": " + e.getMessage() );
         System.exit(0);
         }
-      System.out.println("Database is open!!!!");
-      
       createTable();
     }
     
@@ -53,28 +51,26 @@ public class ChangeJournal {
     public void createTable() {
         Connection connect = null;
         Statement statement = null;
-    try {
-      Class.forName("org.sqlite.JDBC");
-      connect = DriverManager.getConnection("jdbc:sqlite:dingo.db");
-      System.out.println("Opened database successfully");
-
-      statement = connect.createStatement();
-      String sql = "CREATE TABLE IF NOT EXISTS change_journal " +
-                   "(ID             INTEGER     PRIMARY KEY     AUTOINCREMENT," +
-                   " FILENAME       TEXT                        NOT NULL," + 
-                   " TYPE           TEXT                        NOT NULL," + 
-                   " IS_DIRECTORY   BOOLEAN                     ," + 
-                   " DATE_MODIFIED  DATETIME                    ," +    
-                   " REVISION       TEXT                        ," + 
-                   " TIMSTAMP       DATETIME    DEFAULT         CURRENT_TIMESTAMP)"; 
-      statement.executeUpdate(sql);
-      statement.close();
-      connect.close();
-    } catch ( Exception e ) {
-      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-      System.exit(0);
-    }
-        System.out.println("Table created!!!!");
+        try {
+            Class.forName("org.sqlite.JDBC");
+            connect = DriverManager.getConnection("jdbc:sqlite:dingo.db");
+      
+            statement = connect.createStatement();
+            String sql = "CREATE TABLE IF NOT EXISTS change_journal " +
+                         "(ID             INTEGER     PRIMARY KEY     AUTOINCREMENT," +
+                         " FILENAME       TEXT                        NOT NULL," + 
+                         " TYPE           TEXT                        NOT NULL," + 
+                         " IS_DIRECTORY   BOOLEAN                     ," + 
+                         " DATE_MODIFIED  DATETIME                    ," +    
+                         " REVISION       TEXT                        ," + 
+                         " TIMSTAMP       DATETIME    DEFAULT         CURRENT_TIMESTAMP)"; 
+         statement.executeUpdate(sql);
+         statement.close();
+         connect.close();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
     }
     
     /**
