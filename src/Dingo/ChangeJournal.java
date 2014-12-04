@@ -113,7 +113,12 @@ public class ChangeJournal {
         return null;
     }
 
+    /**
+     * 
+     * @param changes 
+     */
     void handleChanges(List<Change> changes) {
+        insertIntoTable();
     }
     
     /**
