@@ -69,7 +69,7 @@ public class Dingo {
                     }
                     try {
                         Thread.sleep(threadSleep);
-                    } catch (InterruptedException ex) {
+                    } catch (Exception ex) {
                     }
                 }
             }

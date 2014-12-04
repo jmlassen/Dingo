@@ -63,7 +63,7 @@ public class ChangeJournal {
                          " IS_DIRECTORY   BOOLEAN                     ," + 
                          " DATE_MODIFIED  DATETIME                    ," +    
                          " REVISION       TEXT                        ," + 
-                         " TIMSTAMP       DATETIME    DEFAULT         CURRENT_TIMESTAMP)"; 
+                         " TIMESTAMP      DATETIME    DEFAULT         CURRENT_TIMESTAMP)"; 
          statement.executeUpdate(sql);
          statement.close();
          connect.close();
@@ -76,8 +76,7 @@ public class ChangeJournal {
     /**
      * 
      */
-    public void insertIntoJournal() {
-        Change change = new Change();
+    public void insertIntoJournal(Change change) {
         Connection connect = null;
         Statement statement = null;
         try {
@@ -86,8 +85,9 @@ public class ChangeJournal {
             connect.setAutoCommit(false);
             
             statement = connect.createStatement();
-            String insertStatement = "INSERT INTO change_journal (FILENAME, TYPE, IS_DIRECTORY)" + 
-                                     "VALUES ('" + change.getFilename() + "', " + change.getType() + ", " + change.isDirectory() + ");";
+            String insertStatement = "INSERT INTO change_journal (FILENAME, TYPE, IS_DIRECTORY) " + 
+                                     "VALUES ('" + change.getFilename() + "', '" + change.getType() + "'," + " CAST('" + change.isDirectory() + "' AS INT));";
+            System.out.println(insertStatement);
             statement.executeUpdate(insertStatement);
             
             statement.close();
@@ -118,7 +118,9 @@ public class ChangeJournal {
      * @param changes 
      */
     void handleChanges(List<Change> changes) {
-        insertIntoJournal();
+        for (Change change : changes) {
+            insertIntoJournal(change);
+        }
     }
     
     /**
