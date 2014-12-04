@@ -12,7 +12,7 @@ public class WatchTowerService {
     
     public WatchTowerService(List<Tower> towers) {
         this.towers = new ArrayList<>();
-        this.towers = towers;
+        //this.towers = towers;
     }   
     
     /**
