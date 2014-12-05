@@ -85,9 +85,10 @@ public class ChangeJournal {
             connect.setAutoCommit(false);
             
             statement = connect.createStatement();
-            String insertStatement = "INSERT INTO change_journal (FILENAME, TYPE, IS_DIRECTORY) " + 
+            String insertStatement = "INSERT INTO change_journal (FILENAME, TYPE, IS_DIRECTORY, DATE_MODIFIED, REVISION) " + 
                                      "VALUES ('" + change.getFilename() + "', '" + change.getType() + 
-                                     "'," + " CAST('" + change.isDirectory() + "' AS INT));";
+                                     "'," + " CAST('" + change.isDirectory() + "' AS INT), " + change.getModified() + ", '" + 
+                                     change.getRevision() + "');";
             System.out.println(insertStatement);
             statement.executeUpdate(insertStatement);
             
