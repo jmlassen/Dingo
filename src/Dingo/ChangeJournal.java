@@ -67,7 +67,7 @@ public class ChangeJournal {
          statement.executeUpdate(sql);
          statement.close();
          connect.close();
-        } catch ( Exception e ) {
+        } catch (Exception e) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);
         }
