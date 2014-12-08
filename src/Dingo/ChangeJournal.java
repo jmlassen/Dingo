@@ -91,7 +91,6 @@ public class ChangeJournal {
             
             insertStatement += (change.isDirectory() ? 1 : 0) + ", " + change.getModified();
             
-            
             if (change.getRevision() != null) {
                 insertStatement += ", '" + change.getRevision() + "');";
             } else {
