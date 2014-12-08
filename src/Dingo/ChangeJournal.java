@@ -91,6 +91,7 @@ public class ChangeJournal {
             
             insertStatement += (change.isDirectory() ? 1 : 0) + ", " + change.getModified();
             
+            // this will add the quotes depending on wheter it is null or not
             if (change.getRevision() != null) {
                 insertStatement += ", '" + change.getRevision() + "');";
             } else {
