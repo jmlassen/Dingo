@@ -1,6 +1,8 @@
 package ui;
 
 import dingo.Dingo;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 
 /**
  *
@@ -26,16 +28,6 @@ public class DingoController {
     }
     
     /**
-     * Adds a task to Dingo.
-     */
-    public void addTask() {
-        // TODO: Get data from GUI and use it to create a task.
-        
-        // Update the list of tasks in GUI with Dingos tasks
-        viewer.updateTaskTable(dingo.getTasks());
-    }
-    
-    /**
      * Dingo starts automatically, but we can start it if it has been stopped.
      */
     public void startDingo() {
@@ -47,5 +39,18 @@ public class DingoController {
      */
     public void stopDingo() {
         
+    }
+    
+    /**
+     * 
+     * @param event 
+     */
+    @FXML
+    public void createTask(ActionEvent event) {
+        // Get the new task values from the GUI
+        // Create a new Task(aka Tower) with the data
+        // Run validation on the GUI values
+        // IF validation == 1, send the task to the Dingo object to add
+        // ELSE, show error message and exit the function
     }
 }
