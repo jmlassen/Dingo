@@ -9,7 +9,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,6 +39,11 @@ public class TaskManager {
     }
     
     public void addTask(Tower tower, String name, String notes) {
+        List<String> flags = new ArrayList<>();
+        for (Flag flag : tower.getFlags()) {
+            
+        }
+        
         String insertTower = "INSERT INTO tasks " +
                 "(NAME, NOTES, START_DATE, END_DATE, FILENAME, " +
                 "EVENT_CREATED, EVENT_MODIFIED, EVENT_MOVED, EVENT_DELETED, " +
@@ -45,7 +52,8 @@ public class TaskManager {
         insertTower += "'" + notes + "', "; // Add task notes
         insertTower += "";  // TODO add start date to tower class
         insertTower += "";  // TODO add end date to tower class
-        insertTower += "'" + tower;
+        insertTower += "'" + tower.getWatching().toString() + "', ";    // Add file watching
+        
         try {
             dbStatement.executeUpdate(insertTower);
         } catch (SQLException ex) {
