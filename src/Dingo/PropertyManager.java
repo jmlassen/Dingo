@@ -1,4 +1,4 @@
-package Dingo;
+package dingo;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

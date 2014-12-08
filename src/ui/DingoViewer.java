@@ -1,6 +1,6 @@
 package ui;
 
-import Dingo.Tower;
+import dingo.Tower;
 import java.util.List;
 
 /**

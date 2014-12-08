@@ -1,4 +1,4 @@
-package Dingo;
+package dingo;
 
 import java.io.File;
 

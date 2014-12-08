@@ -9,6 +9,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Class to handle storing our tasks.
@@ -25,13 +28,35 @@ public class TaskManager {
             dbConnection = DriverManager.getConnection("jdbc:sqlite:dingo.db");
             dbStatement = dbConnection.createStatement();
             
-            // Create the tasks and actions tables if we are running program for first time
+            // Generate and run CREATE TABLE statements
             createTasksTable();
             createActionsTable();
+            
         } catch(Exception ex) {
         }
     }
+    
+    public void addTask(Tower tower, String name, String notes) {
+        String insertTower = "INSERT INTO tasks " +
+                "(NAME, NOTES, START_DATE, END_DATE, FILENAME, " +
+                "EVENT_CREATED, EVENT_MODIFIED, EVENT_MOVED, EVENT_DELETED, " +
+                "ACTIONS) VALUES (";
+        insertTower += "'" + name + "', ";  // Add task name
+        insertTower += "'" + notes + "', "; // Add task notes
+        insertTower += "";  // TODO add start date to tower class
+        insertTower += "";  // TODO add end date to tower class
+        insertTower += "'" + tower;
+        try {
+            dbStatement.executeUpdate(insertTower);
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
+    /**
+     * Generates and runs the CREATE TABLE statement for the tasks table.
+     * @throws SQLException 
+     */
     private void createTasksTable() throws SQLException {
         String createTasksTable = "CREATE TABLE IF NOT EXISTS tasks " +
                 "(ID                INTEGER         PRIMARY KEY     AUTOINCREMENT" +
@@ -50,8 +75,12 @@ public class TaskManager {
             dbStatement.execute(createTasksTable);
     }
 
+    /**
+     * Generates and runs the CREATE TABLE statement for the actions table.
+     * @throws SQLException 
+     */
     private void createActionsTable() throws SQLException {
-        String createActionsTable = "CREATE TABLE IF NOT EXISTS actions" +
+        String createActionsTable = "CREATE TABLE IF NOT EXISTS actions " +
                 "(ID                INTEGER         PRIMARY KEY     AUTOINCREMENT" +
                 ",TYPE              TEXT            NOT NULL" + 
                 ",ARGUMENT          TEXT            NOT NULL" +

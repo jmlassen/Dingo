@@ -1,6 +1,6 @@
 package ui;
 
-import Dingo.Dingo;
+import dingo.Dingo;
 
 /**
  *

@@ -1,4 +1,4 @@
-package Dingo;
+package dingo;
 
 import java.util.ArrayList;
 import java.util.List;

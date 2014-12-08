@@ -1,4 +1,4 @@
-package Dingo;
+package dingo;
 
 import com.dropbox.core.DbxAppInfo;
 import com.dropbox.core.DbxAuthFinish;
