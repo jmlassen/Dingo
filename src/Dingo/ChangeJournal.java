@@ -99,7 +99,7 @@ public class ChangeJournal {
             }
             
             System.out.println(insertStatement);
-            statement.executeUpdate(insertStatement);
+            statement.execute(insertStatement);
             
             statement.close();
             connect.commit();
