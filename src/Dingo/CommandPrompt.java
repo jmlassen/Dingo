@@ -30,17 +30,18 @@ public class CommandPrompt {
     public void run() {
       try {
         String line;
-        Process p = Runtime.getRuntime().exec("cmd");
-        
+        String command = null;           
         
         if (task.equals("Run Command")) {
-            p = Runtime.getRuntime().exec("cmd /c " + execute); // open the command line & run command
+            command = "cmd /c " + execute; // open the command line & run command
         } else if (task.equals("Start Program")) {            
-            p = Runtime.getRuntime().exec(execute);             // run a program from the command line
+            command = execute;             // run a program from the command line
         } else {
             System.out.println("Error: The task is not recognized");
         }
-                
+        
+        Process p = Runtime.getRuntime().exec(command);
+        
         BufferedReader readInfo = new BufferedReader
           (new InputStreamReader(p.getInputStream()));
         BufferedReader readError = new BufferedReader
