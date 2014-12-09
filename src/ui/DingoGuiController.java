@@ -8,7 +8,6 @@ package ui;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 
 /**
  * FXML Controller class
@@ -16,8 +15,7 @@ import javafx.scene.control.Button;
  * @author Joel Lassen <jmlassen at gmail.com>
  */
 public class DingoGuiController implements Initializable {
-    Button okayButton = new Button();
-    
+
     /**
      * Initializes the controller class.
      */
@@ -26,8 +24,4 @@ public class DingoGuiController implements Initializable {
         // TODO
     }    
     
-    private void foo() {
-        // TODO
-        
-    }
 }
