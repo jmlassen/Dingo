@@ -10,26 +10,35 @@ public class CommandPrompt {
     private String execute;    // It contains the ommand to be typed in the cmd line
     private String task;       // Start a program or Run a command
 
-    public static void main(String args[]) {  // This is for testing purposes
+    // Main is only for testing purposes
+    public static void main(String args[]) {  
         new CommandPrompt("dir", "Run Command" ).run();
+        new CommandPrompt("notepad", "Start Program" ).run();
     }
     
-    // Constructor needs a command to be executed
+    // Constructor needs a command to be executed, and a task to specify
+    // if a program is being started or a command run
     public CommandPrompt (String execute, String task) {
         this.execute = execute;
         this.task = task;
     }
     
+    /**
+     * Runs a command or a program depending on what the task is being 
+     * requested.
+     */    
     public void run() {
       try {
         String line;
-        Process p = Runtime.getRuntime().exec("cmd /c ");
+        Process p = Runtime.getRuntime().exec("cmd");
         
         
         if (task.equals("Run Command")) {
-            p = Runtime.getRuntime().exec("cmd /c " + execute); // opens the command linr & run command
+            p = Runtime.getRuntime().exec("cmd /c " + execute); // open the command line & run command
         } else if (task.equals("Start Program")) {            
-            p = Runtime.getRuntime().exec(execute); //run a program from the command line
+            p = Runtime.getRuntime().exec(execute);             // run a program from the command line
+        } else {
+            System.out.println("Error: The task is not recognized");
         }
                 
         BufferedReader readInfo = new BufferedReader
@@ -57,6 +66,3 @@ public class CommandPrompt {
       }
     }
 }
-
-// batch file - runSomething.bat (in windows)
-// in linux/mac - .sh "shell script"
