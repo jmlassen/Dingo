@@ -78,9 +78,12 @@ public class TaskManager {
         for (Flag flag : tower.getFlags()) {
             for (Action action : flag.getActions()) {
                 String insertAction = "INSERT INTO Actions " +
-                        "";
+                        "(TYPE, ARGUMENT) VALUES (" +
+                        "'" + action.getFlag().getFlagType() + "'," + 
+                        "'" + action;
                 
                 dbStatement.execute(insertAction);
+                // Get the ID of the record we just added
                 ResultSet result = dbStatement.executeQuery("SELECT MAX(ID) FROM Tasks");
                 
             }

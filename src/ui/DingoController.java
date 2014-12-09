@@ -40,17 +40,4 @@ public class DingoController {
     public void stopDingo() {
         
     }
-    
-    /**
-     * 
-     * @param event 
-     */
-    @FXML
-    public void createTask(ActionEvent event) {
-        // Get the new task values from the GUI
-        // Create a new Task(aka Tower) with the data
-        // Run validation on the GUI values
-        // IF validation == 1, send the task to the Dingo object to add
-        // ELSE, show error message and exit the function
-    }
 }
