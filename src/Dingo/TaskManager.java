@@ -7,13 +7,11 @@ package dingo;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Class to handle storing our tasks.
@@ -38,27 +36,56 @@ public class TaskManager {
         }
     }
     
-    public void addTask(Tower tower, String name, String notes) {
+    /**
+     * Inserts a task into the tasks table
+     * @param tower task created by user
+     * @param name string name the user gave for the task
+     * @param notes string notes the user gave for the task
+     * @throws SQLException 
+     */
+    public void addTask(Tower tower, String name, String notes) throws SQLException  {
         List<String> flags = new ArrayList<>();
         for (Flag flag : tower.getFlags()) {
-            
+            flags.add(flag.getFlagType());
         }
         
-        String insertTower = "INSERT INTO tasks " +
+        // Holy string concatenation, Batman.
+        String insertTower = "INSERT INTO Tasks " +
                 "(NAME, NOTES, START_DATE, END_DATE, FILENAME, " +
                 "EVENT_CREATED, EVENT_MODIFIED, EVENT_MOVED, EVENT_DELETED, " +
                 "ACTIONS) VALUES (";
         insertTower += "'" + name + "', ";  // Add task name
         insertTower += "'" + notes + "', "; // Add task notes
-        insertTower += "";  // TODO add start date to tower class
-        insertTower += "";  // TODO add end date to tower class
+        insertTower += "" + ", ";  // TODO add start date to tower class
+        insertTower += "" + ", ";  // TODO add end date to tower class
         insertTower += "'" + tower.getWatching().toString() + "', ";    // Add file watching
+        insertTower += (flags.contains("creation")) ? 1 : 0 + ", ";
+        insertTower += (flags.contains("alteration")) ? 1 : 0 + ", ";
+        insertTower += (flags.contains("moveation")) ? 1 : 0 + ", ";
+        insertTower += (flags.contains("deletion")) ? 1 : 0 + ", ";
+        insertTower += "'" + addActions(tower) + "')";
         
-        try {
-            dbStatement.executeUpdate(insertTower);
-        } catch (SQLException ex) {
-            Logger.getLogger(TaskManager.class.getName()).log(Level.SEVERE, null, ex);
+        dbStatement.executeUpdate(insertTower);
+    }
+    
+    /**
+     * Takes all the actions from the tower and adds them to the actions table.
+     * @param tower
+     * @return list of the action IDs created in a string
+     */
+    private String addActions(Tower tower) throws SQLException {
+        String insertedActions = "";
+        for (Flag flag : tower.getFlags()) {
+            for (Action action : flag.getActions()) {
+                String insertAction = "INSERT INTO Actions " +
+                        "";
+                
+                dbStatement.execute(insertAction);
+                ResultSet result = dbStatement.executeQuery("SELECT MAX(ID) FROM Tasks");
+                
+            }
         }
+        return null;
     }
 
     /**
@@ -66,7 +93,7 @@ public class TaskManager {
      * @throws SQLException 
      */
     private void createTasksTable() throws SQLException {
-        String createTasksTable = "CREATE TABLE IF NOT EXISTS tasks " +
+        String createTasksTable = "CREATE TABLE IF NOT EXISTS Tasks " +
                 "(ID                INTEGER         PRIMARY KEY     AUTOINCREMENT" +
                 ",NAME              TEXT            NOT NULL" +
                 ",NOTES             TEXT" +
@@ -88,7 +115,7 @@ public class TaskManager {
      * @throws SQLException 
      */
     private void createActionsTable() throws SQLException {
-        String createActionsTable = "CREATE TABLE IF NOT EXISTS actions " +
+        String createActionsTable = "CREATE TABLE IF NOT EXISTS Actions " +
                 "(ID                INTEGER         PRIMARY KEY     AUTOINCREMENT" +
                 ",TYPE              TEXT            NOT NULL" + 
                 ",ARGUMENT          TEXT            NOT NULL" +
