@@ -58,7 +58,7 @@ public class TaskManager {
         insertTower += "'" + notes + "', "; // Add task notes
         insertTower += "" + ", ";  // TODO add start date to tower class
         insertTower += "" + ", ";  // TODO add end date to tower class
-        insertTower += "'" + tower.getWatching().toString() + "', ";    // Add file watching
+        insertTower += "'" + tower.getWatching().toString() + "', ";
         insertTower += (flags.contains("creation")) ? 1 : 0 + ", ";
         insertTower += (flags.contains("alteration")) ? 1 : 0 + ", ";
         insertTower += (flags.contains("moveation")) ? 1 : 0 + ", ";
@@ -80,15 +80,16 @@ public class TaskManager {
                 String insertAction = "INSERT INTO Actions " +
                         "(TYPE, ARGUMENT) VALUES (" +
                         "'" + action.getFlag().getFlagType() + "'," + 
-                        "'" + action;
+                        "'" + action.getArgument() + "')";
                 
                 dbStatement.execute(insertAction);
                 // Get the ID of the record we just added
                 ResultSet result = dbStatement.executeQuery("SELECT MAX(ID) FROM Tasks");
-                
+                insertedActions += result.getString(1) + ",";
             }
         }
-        return null;
+        // Remove the last comma
+        return insertedActions.substring(0, insertedActions.length() - 2);
     }
 
     /**

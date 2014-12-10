@@ -63,7 +63,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <TableView id="tasksTblView" layoutY="23.0" prefHeight="348.0" prefWidth="778.0">
+      <TableView id="tasksTblView" fx:id="taskTableView" layoutY="23.0" prefHeight="348.0" prefWidth="778.0">
         <columns>
           <TableColumn prefWidth="120.0" text="Name" />
           <TableColumn minWidth="0.0" prefWidth="302.0" text="File" />
