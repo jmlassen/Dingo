@@ -10,6 +10,9 @@ import java.util.List;
 import java.io.File;
 import java.io.FileWriter;
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Formatter;
+import java.util.TimeZone;
 
 /**
  * @author mormon
@@ -79,6 +82,12 @@ public class ChangeJournal {
     public void insertIntoJournal(Change change) {
         Connection connect = null;
         Statement statement = null;
+        
+        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        f.setTimeZone(TimeZone.getTimeZone("UTC"));
+        java.util.Date timeModified = change.getModified();
+        f.setTimeZone(TimeZone.getTimeZone("PST"));
+        
         try {
             Class.forName("org.sqlite.JDBC");
             connect = DriverManager.getConnection("jdbc:sqlite:dingo.db");
@@ -89,8 +98,9 @@ public class ChangeJournal {
                                      "VALUES ('" + change.getFilename() + "', '" + change.getType() + 
                                      "',"; 
             
-            insertStatement += (change.isDirectory() ? 1 : 0) + ", " + change.getModified();
-            
+            insertStatement += (change.isDirectory() ? 1 : 0) + ", " + 
+                    "'" + f.format(timeModified) + "'";
+                    
             // this will add the quotes depending on wheter it is null or not
             if (change.getRevision() != null) {
                 insertStatement += ", '" + change.getRevision() + "');";

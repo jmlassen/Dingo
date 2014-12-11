@@ -11,6 +11,7 @@ public class Action {
     private String action;
     private Flag flag;
     private File file;
+    private String argument;
     
     /**
      * @param action
@@ -21,6 +22,14 @@ public class Action {
         this.action = action;
         this.flag = flag;
         this.file = file;
+    }
+    
+    public String getArgument() {
+        return argument;
+    }
+
+    public void setArgument(String argument) {
+        this.argument = argument;
     }
     
     /**
