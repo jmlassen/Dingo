@@ -99,5 +99,12 @@ public class Change {
         this.isDirectory = isDirectory;
     }   
     
+    /**
+     * @return Date -> modified 
+     */
+    Date getDate() {
+        return modified;
+    }
+    
     
 }
