@@ -28,9 +28,9 @@
                         <KeyCodeCombination alt="UP" code="I" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-                  <MenuItem disable="true" mnemonicParsing="false" text="Start Listening" />
-                  <MenuItem mnemonicParsing="false" text="Stop Listening" />
-                  <MenuItem mnemonicParsing="false" text="Close GUI" />
+                  <MenuItem fx:id="startListen" disable="true" mnemonicParsing="false" onAction="#handleButtonEvent2" text="Start Listening" />
+                  <MenuItem fx:id="stopListening" mnemonicParsing="false" onAction="#handleButtonEvent4" text="Stop Listening" />
+                  <MenuItem fx:id="closeGui" mnemonicParsing="false" onAction="#handleButtonEvent" text="Close GUI" />
                </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
