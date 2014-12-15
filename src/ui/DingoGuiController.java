@@ -51,7 +51,8 @@ public class DingoGuiController implements Initializable {
     }
 
     
-    @FXML void handleButtonEvent4(ActionEvent event) {
+    @FXML
+    void handleButtonEvent4(ActionEvent event) {
         System.exit(0);
     }
 }
