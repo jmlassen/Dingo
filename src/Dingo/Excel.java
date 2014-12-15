@@ -87,7 +87,7 @@ public class Excel {
       RowsExceededException { 
     // Write a few number
     for (int i = 0; i < changes.size(); i++) {
-      // First column
+      // First column. Row is i + 1 because the first row has the column's titles
       addLabel(sheet, 0, i + 1, changes.get(i).getFilename());
       // Second column
       addLabel(sheet, 1, i + 1, changes.get(i).getType());
@@ -109,29 +109,4 @@ public class Excel {
     label = new Label(column, row, s, times);
     sheet.addCell(label);
   }
-
-  public static void main(String[] args) throws WriteException, IOException {
-    
-      List<Change> changes = new ArrayList<>();    
-                        
-        for (int i = 0; i < 5; i++) {  
-            Change change = new Change();
-            if ((i % 2) == 0) {                
-                change.setType("deletion  ");                 
-            } else {                
-                change.setType("alteration");                 
-            }
-            change.setFilename("test");
-            change.setIsDirectory(false);
-            change.setModified(new Date());
-            change.setRevision(null);
-            changes.add(change);
-        }
-      
-    Excel test = new Excel();
-    test.setOutputFile("c:/Users/HEIDY2016/Desktop/lars.xls");
-    test.write(changes);   
-    System.out
-        .println("Please check the result file under c:/temp/lars.xls ");
-  }  
 }
