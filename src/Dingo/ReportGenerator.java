@@ -41,9 +41,9 @@ public class ReportGenerator {
         for (int i = 0; i < 5; i++) {  
             Change change = new Change();
             if ((i % 2) == 0) {                
-                change.setType("deletion  ");                 
-            } else {                
                 change.setType("alteration");                 
+            } else {                
+                change.setType("deletion  ");                 
             }
             change.setFilename("test");
             change.setIsDirectory(false);
