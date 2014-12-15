@@ -25,13 +25,11 @@ public class ReportGenerator {
     private int defaultChanges;
     private List<Change> changes;
     private String file;
-    private String excelFile;
 
     public ReportGenerator(int defaultChanges, List<Change> changes) {
         this.defaultChanges = defaultChanges;
         this.changes = changes;
         this.file = "c:/Users/HEIDY2016/Desktop/Report_Backup.txt";
-        this.excelFile = "c:/Users/HEIDY2016/Desktop/lars.xls";
     }
     
     // Main is only for testing purposes, I'll delete it once this is fully
@@ -52,10 +50,10 @@ public class ReportGenerator {
             change.setModified(new Date());
             change.setRevision(null);
             changes.add(change);
-        }        
+        }
+        
         ReportGenerator report = new ReportGenerator(5, changes);
-        report.getLastChanges(); 
-//        report.writeSpreadSheet();
+        report.getLastChanges();        
     }      
     
     /**
@@ -104,17 +102,6 @@ public class ReportGenerator {
         writer.close(); 
     }
         
-     /**
-     * 
-     */
-//    void writeSpreadSheet() {
-//        Excel spreadSheet = new Excel();
-//        spreadSheet.setOutputFile(excelFile);               
-//        spreadSheet.write(changes);
-//        System.out
-//        .println("Please check the result file under c:/temp/lars.xls ");
-//    }
-    
     /**
      * 
      */
