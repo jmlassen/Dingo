@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.TimeZone;
 
@@ -131,7 +132,7 @@ public class ChangeJournal {
      * @return 
      */
     List<Tower> getTowers() {
-        return null;
+        return new ArrayList<Tower>();
     }
 
     /**

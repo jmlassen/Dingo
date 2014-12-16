@@ -8,6 +8,8 @@ package dingo;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  *
@@ -79,5 +81,29 @@ public class Tower {
      */
     void handleChange(Change change) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    /**
+     * 
+     * @return 
+     */
+    public StringProperty getNotes() {
+        return new SimpleStringProperty("foo");
+    }
+
+    /**
+     * 
+     * @return 
+     */
+    public StringProperty getName() {
+        return new SimpleStringProperty("bar");
+    }
+
+    /**
+     * 
+     * @return 
+     */
+    public String getFile() {
+        return watching.getAbsolutePath();
     }
 }
