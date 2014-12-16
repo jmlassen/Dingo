@@ -1,6 +1,7 @@
 package ui;
 
 import dingo.Dingo;
+import dingo.Task;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -39,6 +40,11 @@ public class DingoLoader extends Application {
         personData.add(new Person("Martin", "Mueller"));
         
         dingo = new Dingo();
+        
+        for (Task task : dingo.getTasks()) {
+            personData.add(new Person(task.getName(), task.getNotes()));
+        }
+        
     }
 
     /**

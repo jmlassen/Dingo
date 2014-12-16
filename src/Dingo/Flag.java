@@ -5,52 +5,45 @@
  */
 package dingo;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  *
  * @author HEIDY2016
  */
 public class Flag {
-    // flagType can be deletion, alteration, and changeDirectory
-    private String flagType;
-    // Recipient of the sendEmail notification for this flag
-    private String to;  
+    private StringProperty type;
     
     /**
      * Constructor
      * @param flagType
      */
     public Flag(String flagType) {
-        this.flagType = flagType;
+        this.type = new SimpleStringProperty(flagType);
     }        
     
-     /**
-     *
-     */
-    public String getFlagType() {
-        return flagType;
-    }
-
     /**
-     *
-     * @param flagType
+     * 
+     * @param type 
      */
-    public void setFlagType(String flagType) {
-        this.flagType = flagType;
+    public void setFlagType(String type) {
+        this.type = new SimpleStringProperty(type);
     }
-
+    
     /**
-     * getter for the recipient of the sendEmail notification
+     * 
      * @return 
      */
-    public String getTo() {
-        return to;
+    public String getType() {
+        return type.get();
     }
-
-    /*
-    * set the recipient of the sendEmail notification
-    * @param to
-    */
-    public void setTo(String to) {
-        this.to = to;
+    
+    /**
+     * 
+     * @return 
+     */
+    public StringProperty getTypeProperty() {
+        return type;
     }
 }

@@ -1,21 +1,32 @@
 package dingo;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  *
  * @author HEIDY2016
  * @author Joel Lassen <jmlassen at gmail.com>
  */
 public class Action {
-    private String action;
-    private String argument;
+    private StringProperty action;
+    private StringProperty argument;
     
     /**
      * @param action
      * @param argument
      */
     public Action(String action, String argument) {
-        this.action = action;
-        this.argument = argument;
+        this.action = new SimpleStringProperty(action);
+        this.argument = new SimpleStringProperty(argument);
+    }
+    
+    /**
+     * 
+     * @param argument 
+     */
+    public void setArgument(String argument) {
+        this.argument = new SimpleStringProperty(argument);
     }
     
     /**
@@ -23,15 +34,11 @@ public class Action {
      * @return 
      */
     public String getArgument() {
-        return argument;
+        return argument.get();
     }
-
-    /**
-     * 
-     * @param argument 
-     */
-    public void setArgument(String argument) {
-        this.argument = argument;
+    
+    public StringProperty getArgumentProperty() {
+        return argument;
     }
     
     /**
@@ -39,7 +46,7 @@ public class Action {
      * @param action
      */
     public void setAction (String action) {
-        this.action = action;
+        this.action = new SimpleStringProperty(action);
     }
     
     /**
@@ -47,8 +54,13 @@ public class Action {
      * @return action
      */
     public String getAction () {
+        return action.get();
+    }
+    
+    public StringProperty getActionProperty() {
         return action;
     }
+    
     /**
      *
      * @return flag

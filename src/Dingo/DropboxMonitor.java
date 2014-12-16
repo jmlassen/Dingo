@@ -51,7 +51,7 @@ class DropboxMonitor {
             client = new DbxClient(config, token);
             started = true;
             // Let the user know we connected correctly.
-            System.out.println("Welcome " + client.getAccountInfo().displayName);
+            // System.out.println("Welcome " + client.getAccountInfo().displayName);
         } catch (Exception ex) {
             System.out.println("Error connecting to API. Make sure key and secret properties are correct.");
             System.exit(1);

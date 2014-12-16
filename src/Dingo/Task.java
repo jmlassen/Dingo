@@ -172,7 +172,7 @@ public class Task {
      */
     public boolean checkFlag(String event) {
         for(Flag f:flags) {
-            if (f.getFlagType().equals(event)) {
+            if (f.getType().equals(event)) {
                 return true;
             }
         }

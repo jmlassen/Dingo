@@ -46,7 +46,7 @@ public class TaskStorage {
     public void addTask(Task task) throws SQLException {
         List<String> flags = new ArrayList<>();
         for (Flag flag : task.getFlags()) {
-            flags.add(flag.getFlagType());
+            flags.add(flag.getType());
         }
         
         // Holy string concatenation, Batman.
@@ -59,12 +59,12 @@ public class TaskStorage {
         insertTask += "'" + "', ";  // TODO add start date to task class
         insertTask += "'" + "', ";  // TODO add end date to task class
         insertTask += "'" + task.getFile() + "', ";
-        insertTask += (flags.contains("creation")) ? 1 : 0 + ", ";
-        insertTask += (flags.contains("alteration")) ? 1 : 0 + ", ";
-        insertTask += (flags.contains("moveation")) ? 1 : 0 + ", ";
-        insertTask += (flags.contains("deletion")) ? 1 : 0 + ", ";
+        insertTask += (flags.contains("creation") ? 1 : 0) + ", ";
+        insertTask += (flags.contains("alteration") ? 1 : 0) + ", ";
+        insertTask += (flags.contains("moveation") ? 1 : 0) + ", ";
+        insertTask += (flags.contains("deletion") ? 1 : 0) + ", ";
         insertTask += "'" + addActions(task) + "')";
-        System.out.println(insertTask);
+        // System.out.println(insertTask);
         dbStatement.executeUpdate(insertTask);
     }
     
@@ -83,11 +83,11 @@ public class TaskStorage {
 
             dbStatement.execute(insertAction);
             // Get the ID of the record we just added
-            ResultSet result = dbStatement.executeQuery("SELECT MAX(ID) FROM Tasks");
+            ResultSet result = dbStatement.executeQuery("SELECT MAX(ID) FROM Actions;");
             insertedActions += result.getString(1) + ",";
         }
         // Remove the last comma
-        return "0"; //insertedActions.substring(0, insertedActions.length() - 2);
+        return insertedActions.substring(0, insertedActions.length() - 1);
     }
 
     /**
@@ -126,7 +126,55 @@ public class TaskStorage {
         dbStatement.execute(createActionsTable);
     }
 
-    List<Task> getTasks() {
-        return new ArrayList<Task>();
+    /**
+     * Selects tasks from Tasks table, returns a list to be used luego.
+     * @return 
+     */
+    List<Task> getTasks() throws SQLException {
+        List<Task> tasks = new ArrayList<>();
+        
+        ResultSet tasksSet = dbStatement.executeQuery("SELECT * FROM Tasks;");
+        
+        while (tasksSet.next()) {
+            String name = tasksSet.getString("NAME");
+            String notes = tasksSet.getString("NOTES");
+            String file = tasksSet.getString("FILENAME");
+            Task task = new Task(name, notes, file);
+            
+            System.out.println(name + "\t" + notes + "\t" + file);
+            
+            // Get flags
+            if (tasksSet.getString("EVENT_CREATED").equals("1")) {
+                task.addFlag(new Flag("creation"));
+            } if (tasksSet.getString("EVENT_MODIFIED").equals("1")) {
+                task.addFlag(new Flag("alteration"));
+            } if (tasksSet.getString("EVENT_MOVED").equals("1")) {
+                task.addFlag(new Flag("moveation"));
+            } if (tasksSet.getString("EVENT_DELETED").equals("1")) {
+                task.addFlag(new Flag("deletion"));
+            }
+            
+            // Get the actions string
+            String actionsStr = tasksSet.getString("ACTIONS");
+            String[] actionIds = actionsStr.split(",");
+            
+            // Loop through each associated action
+            for (String actionId : actionIds) {
+                ResultSet actionSet = dbStatement.executeQuery(
+                        "SELECT * FROM Actions WHERE ID = '" + actionId + "';");
+                while (actionSet.next()) {
+                    String type = actionSet.getString("TYPE");
+                    String argument = actionSet.getString("ARGUMENT");
+                    task.addAction(new Action(type, argument));
+                }
+                actionSet.close();
+            }
+            
+            tasks.add(task);
+        }
+        
+        tasksSet.close();
+        
+        return tasks;
     }
 }
