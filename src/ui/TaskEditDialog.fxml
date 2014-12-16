@@ -6,6 +6,37 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.TaskEditDialogController">
-    
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.TaskEditDialogController">
+   <children>
+      <TabPane prefHeight="358.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Task">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="326.0" prefWidth="543.0">
+                     <children>
+                        <Label layoutX="33.0" layoutY="25.0" text="Name" />
+                        <Label layoutX="33.0" layoutY="72.0" text="Notes" />
+                        <Label layoutX="40.0" layoutY="280.0" text="File" />
+                        <TextField layoutX="82.0" layoutY="21.0" prefHeight="25.0" prefWidth="492.0" />
+                        <TextArea layoutX="81.0" layoutY="72.0" prefHeight="179.0" prefWidth="495.0" />
+                        <TextField disable="true" layoutX="83.0" layoutY="276.0" prefHeight="25.0" prefWidth="444.0" />
+                        <Button layoutX="538.0" layoutY="276.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="39.0" text="..." />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Event">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+            <Tab text="Action">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <Button layoutX="521.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Cancel" />
+      <Button layoutX="447.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="OK" />
+   </children>
 </AnchorPane>
