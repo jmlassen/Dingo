@@ -1,4 +1,4 @@
-package Dingo;
+package dingo;
 
 /**
  * This class will run commands or programs in the command line

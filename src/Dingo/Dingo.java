@@ -24,10 +24,6 @@ public class Dingo {
     public static void main(String[] args) {
         new Dingo().run();
     }
-    
-    public Dingo() {
-        run();
-    }
 
     /**
      * Checks to see if we are the only instance running. Starts the GUI.
