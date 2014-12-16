@@ -40,7 +40,55 @@ public class Task {
         this.notes = new SimpleStringProperty(notes);
         this.file = new SimpleStringProperty(file);
     }
-        
+    
+    /**
+     * 
+     * @param name 
+     */
+    public void setName(String name) {
+        this.name = new SimpleStringProperty(name);
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public String getName() {
+        return name.get();
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public StringProperty getNameProperty() {
+        return name;
+    }
+    
+    /**
+     * 
+     * @param notes 
+     */
+    public void setNotes(String notes) {
+        this.notes = new SimpleStringProperty(notes);
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public String getNotes() {
+        return notes.get();
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public StringProperty getNotesProperty() {
+        return notes;
+    }
+    
     /**
      *
      * @param file
@@ -57,6 +105,10 @@ public class Task {
         return file.get();
     }
     
+    /**
+     * 
+     * @return 
+     */
     public StringProperty getFileProperty() {
         return file;
     }

@@ -38,14 +38,14 @@ public class TaskStorage {
     
     /**
      * Inserts a task into the tasks table
-     * @param tower task created by user
+     * @param task task created by user
      * @param name string name the user gave for the task
      * @param notes string notes the user gave for the task
      * @throws SQLException 
      */
-    public void addTask(Task tower, String name, String notes) throws SQLException  {
+    public void addTask(Task task) throws SQLException  {
         List<String> flags = new ArrayList<>();
-        for (Flag flag : tower.getFlags()) {
+        for (Flag flag : task.getFlags()) {
             flags.add(flag.getFlagType());
         }
         
@@ -54,28 +54,28 @@ public class TaskStorage {
                 "(NAME, NOTES, START_DATE, END_DATE, FILENAME, " +
                 "EVENT_CREATED, EVENT_MODIFIED, EVENT_MOVED, EVENT_DELETED, " +
                 "ACTIONS) VALUES (";
-        insertTower += "'" + name + "', ";  // Add task name
-        insertTower += "'" + notes + "', "; // Add task notes
+        insertTower += "'" + task.getName() + "', ";  // Add task name
+        insertTower += "'" + task.getNotes() + "', "; // Add task notes
         insertTower += "" + ", ";  // TODO add start date to tower class
         insertTower += "" + ", ";  // TODO add end date to tower class
-        insertTower += "'" + tower.getFile().toString() + "', ";
+        insertTower += "'" + task.getFile() + "', ";
         insertTower += (flags.contains("creation")) ? 1 : 0 + ", ";
         insertTower += (flags.contains("alteration")) ? 1 : 0 + ", ";
         insertTower += (flags.contains("moveation")) ? 1 : 0 + ", ";
         insertTower += (flags.contains("deletion")) ? 1 : 0 + ", ";
-        insertTower += "'" + addActions(tower) + "')";
+        insertTower += "'" + addActions(task) + "')";
         
         dbStatement.executeUpdate(insertTower);
     }
     
     /**
      * Takes all the actions from the tower and adds them to the actions table.
-     * @param tower
+     * @param task
      * @return list of the action IDs created in a string
      */
-    private String addActions(Task tower) throws SQLException {
+    private String addActions(Task task) throws SQLException {
         String insertedActions = "";
-        for (Flag flag : tower.getFlags()) {
+        for (Flag flag : task.getFlags()) {
             for (Action action : flag.getActions()) {
                 String insertAction = "INSERT INTO Actions " +
                         "(TYPE, ARGUMENT) VALUES (" +
