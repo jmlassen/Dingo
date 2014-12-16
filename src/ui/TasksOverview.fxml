@@ -19,5 +19,5 @@
 </TableView>
 </children></AnchorPane>
   </items>
-</SplitPane><Label layoutX="196.0048828125" layoutY="-89.5" text="Label" />
+</SplitPane>
 </children></AnchorPane>

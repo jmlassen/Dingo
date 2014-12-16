@@ -1,5 +1,6 @@
 package ui;
 
+import dingo.Dingo;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -11,10 +12,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class MainApp extends Application {
+public class DingoLoader extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
+    private Dingo dingo;
     
     /**
      * The data as an observable list of Persons.
@@ -24,7 +26,7 @@ public class MainApp extends Application {
     /**
      * Constructor
      */
-    public MainApp() {
+    public DingoLoader() {
         // Add some sample data
         personData.add(new Person("Hans", "Muster"));
         personData.add(new Person("Ruth", "Mueller"));
@@ -35,6 +37,8 @@ public class MainApp extends Application {
         personData.add(new Person("Anna", "Best"));
         personData.add(new Person("Stefan", "Meier"));
         personData.add(new Person("Martin", "Mueller"));
+        
+        dingo = new Dingo();
     }
 
     /**
@@ -48,11 +52,11 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("AddressApp");
+        this.primaryStage.setTitle("Task Overview");
 
         initRootLayout();
 
-        showPersonOverview();
+        showTaskOverview();
     }
     
     /**
@@ -62,7 +66,7 @@ public class MainApp extends Application {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("ui/RootLayout.fxml"));
+            loader.setLocation(DingoLoader.class.getResource("/ui/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
             
             // Show the scene containing the root layout.
@@ -77,11 +81,11 @@ public class MainApp extends Application {
     /**
      * Shows the person overview inside the root layout.
      */
-    public void showPersonOverview() {
+    public void showTaskOverview() {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("ui/PersonOverview.fxml"));
+            loader.setLocation(DingoLoader.class.getResource("/ui/TasksOverview.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
             
             // Set person overview into the center of root layout.
