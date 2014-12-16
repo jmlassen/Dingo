@@ -7,10 +7,10 @@ import java.util.List;
  *
  * @author HEIDY2016
  */
-public class WatchTowerService {
-    private List<Tower> towers;
+public class TaskService {
+    private List<Task> towers;
     
-    public WatchTowerService(List<Tower> towers) {
+    public TaskService(List<Task> towers) {
         this.towers = new ArrayList<>();
         //this.towers = towers;
     }   
@@ -19,7 +19,7 @@ public class WatchTowerService {
      * 
      * @param tower
      */
-    public void addTower (Tower tower) {  
+    public void addTower (Task tower) {  
         towers.add(tower);
     }
     
@@ -27,7 +27,7 @@ public class WatchTowerService {
      * Return back our towers, for the GUI.
      * @return 
      */
-    public List<Tower> getTowers() {
+    public List<Task> getTowers() {
         return towers;
     }
     
@@ -38,9 +38,9 @@ public class WatchTowerService {
     public void handleChanges(List<Change> changes) {
         for (Change change: changes) {
             // Loop through each of our towers
-            for (Tower tower:towers) {
+            for (Task tower:towers) {
                 // Find the file in the list of files been watched
-                if (tower.getWatching().getPath().equals(change.getFilename())) {
+                if (tower.getFile().equals(change.getFilename())) {
                     // Let the tower handle the change
                     tower.handleChange(change);
                 }            

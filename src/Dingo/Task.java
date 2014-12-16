@@ -5,7 +5,6 @@
  */
 package dingo;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
@@ -15,29 +14,51 @@ import javafx.beans.property.StringProperty;
  *
  * @author HEIDY2016
  */
-public class Tower {
-    private File watching;
+public class Task {
+    private StringProperty name;
+    private StringProperty notes;
+    private StringProperty file;
     private List<Flag> flags;
 
-    public Tower(File watching) {
-        this.watching = watching;
+    /**
+     * Create Task with only the file, probably need to remove.
+     * @param file 
+     */
+    public Task(String file) {
+        this.file = new SimpleStringProperty(file);
         this.flags = new ArrayList<>();
+    }
+    
+    /**
+     * Create Task with the name, notes, and file.
+     * @param name
+     * @param notes
+     * @param file 
+     */
+    public Task(String name, String notes, String file) {
+        this.name = new SimpleStringProperty(name);
+        this.notes = new SimpleStringProperty(notes);
+        this.file = new SimpleStringProperty(file);
     }
         
     /**
      *
      * @param file
      */
-    public void setWatching (File file) {
-        this.watching = file;
+    public void setFile (String file) {
+        this.file = new SimpleStringProperty(file);
     }
     
     /**
      *
      * @return file
      */
-    public File getWatching () {
-        return watching;
+    public String getFile() {
+        return file.get();
+    }
+    
+    public StringProperty getFileProperty() {
+        return file;
     }
     
     /**
@@ -81,29 +102,5 @@ public class Tower {
      */
     void handleChange(Change change) {
         throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    /**
-     * 
-     * @return 
-     */
-    public StringProperty getNotes() {
-        return new SimpleStringProperty("foo");
-    }
-
-    /**
-     * 
-     * @return 
-     */
-    public StringProperty getName() {
-        return new SimpleStringProperty("bar");
-    }
-
-    /**
-     * 
-     * @return 
-     */
-    public String getFile() {
-        return watching.getAbsolutePath();
     }
 }

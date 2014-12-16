@@ -130,7 +130,7 @@ public class ChangeJournal {
      * 
      * @return 
      */
-    List<Tower> getTowers() {
+    List<Task> getTowers() {
         return null;
     }
 

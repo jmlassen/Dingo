@@ -17,11 +17,11 @@ import java.util.List;
  * Class to handle storing our tasks.
  * @author Joel Lassen <jmlassen at gmail.com>
  */
-public class TaskManager {
+public class TaskStorage {
     Connection dbConnection;
     Statement dbStatement;
     
-    public TaskManager() {
+    public TaskStorage() {
         try {
             // Initialize connections to the dingo database
             Class.forName("org.sqlite.JDBC");
@@ -43,7 +43,7 @@ public class TaskManager {
      * @param notes string notes the user gave for the task
      * @throws SQLException 
      */
-    public void addTask(Tower tower, String name, String notes) throws SQLException  {
+    public void addTask(Task tower, String name, String notes) throws SQLException  {
         List<String> flags = new ArrayList<>();
         for (Flag flag : tower.getFlags()) {
             flags.add(flag.getFlagType());
@@ -58,7 +58,7 @@ public class TaskManager {
         insertTower += "'" + notes + "', "; // Add task notes
         insertTower += "" + ", ";  // TODO add start date to tower class
         insertTower += "" + ", ";  // TODO add end date to tower class
-        insertTower += "'" + tower.getWatching().toString() + "', ";
+        insertTower += "'" + tower.getFile().toString() + "', ";
         insertTower += (flags.contains("creation")) ? 1 : 0 + ", ";
         insertTower += (flags.contains("alteration")) ? 1 : 0 + ", ";
         insertTower += (flags.contains("moveation")) ? 1 : 0 + ", ";
@@ -73,7 +73,7 @@ public class TaskManager {
      * @param tower
      * @return list of the action IDs created in a string
      */
-    private String addActions(Tower tower) throws SQLException {
+    private String addActions(Task tower) throws SQLException {
         String insertedActions = "";
         for (Flag flag : tower.getFlags()) {
             for (Action action : flag.getActions()) {
@@ -126,5 +126,9 @@ public class TaskManager {
                 ",DATE_ADDED        DATETIME        DEFAULT     CURRENT_TIMESTAMP)";
         
         dbStatement.execute(createActionsTable);
+    }
+
+    List<Task> getTasks() {
+        return new ArrayList<Task>();
     }
 }

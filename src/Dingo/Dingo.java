@@ -11,9 +11,10 @@ import java.util.List;
  * @author Justin
  */
 public class Dingo {
-    private DropboxMonitor dm;
-    private WatchTowerService wts;
-    private ChangeJournal cl;
+    private DropboxMonitor dropboxMonitor;
+    private TaskService taskService;
+    private ChangeJournal changeJournal;
+    private TaskStorage taskStorage;
     private boolean listening = true;
     private int threadSleep = 1500;
     
@@ -24,24 +25,30 @@ public class Dingo {
     public static void main(String[] args) {
         new Dingo().run();
     }
+    
+    /**
+     * 
+     */
+    public Dingo() {
+        run();
+    }
 
     /**
      * Checks to see if we are the only instance running. Starts the GUI.
-     * Starts the DropBox monitor and creates the ChangeJournal and
-     * WatchTowerService objects. Calls the method that starts the listening
-     * thread loop.
+ Starts the DropBox monitor and creates the ChangeJournal and
+ TaskService objects. Calls the method that starts the listening
+ thread loop.
      */
     public void run() {
         // Check to make sure there is only one instance listening
         checkInstance();
         // Init and start the db service.
-        dm = new DropboxMonitor();
-        dm.start();
-        cl = new ChangeJournal();
-        // Get Towers from XmlService
-        List<Tower> towers = cl.getTowers();
-        // Init WatchTowerService
-        wts = new WatchTowerService(towers);
+        dropboxMonitor = new DropboxMonitor();
+        dropboxMonitor.start();
+        changeJournal = new ChangeJournal();
+        taskStorage = new TaskStorage();
+        // Init TaskService
+        taskService = new TaskService(taskStorage.getTasks());
         // Start listening.
         listen();
     }
@@ -61,12 +68,12 @@ public class Dingo {
                 + " manually stoping the thread.");
                 // Start the infinate loop
                 while (listening) {       
-                    List<Change> changes = dm.getChanges();
+                    List<Change> changes = dropboxMonitor.getChanges();
                     // Check to see if we got any new changes.
                     if (changes != null) {
                         try {
-                            wts.handleChanges(changes);
-                            cl.handleChanges(changes);
+                            taskService.handleChanges(changes);
+                            changeJournal.handleChanges(changes);
                         } catch (Exception ex) {
                             ex.printStackTrace();
                         }
@@ -96,11 +103,11 @@ public class Dingo {
     }
     
     /**
-     * Returns the towers in the WatchTowerService.
+     * Returns the towers in the TaskService.
      * @return 
      */
-    public List<Tower> getTasks() {
-        return wts.getTowers();
+    public List<Task> getTasks() {
+        return taskService.getTowers();
     }
     
     /**

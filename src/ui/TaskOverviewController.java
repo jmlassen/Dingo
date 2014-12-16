@@ -5,26 +5,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-public class PersonOverviewController {
+public class TaskOverviewController {
     @FXML
     private TableView<Person> personTable;
     @FXML
-    private TableColumn<Person, String> firstNameColumn;
+    private TableColumn<Person, String> taskNameColumn;
     @FXML
-    private TableColumn<Person, String> lastNameColumn;
-
+    private TableColumn<Person, String> taskFileColumn;
     @FXML
-    private Label firstNameLabel;
-    @FXML
-    private Label lastNameLabel;
-    @FXML
-    private Label streetLabel;
-    @FXML
-    private Label postalCodeLabel;
-    @FXML
-    private Label cityLabel;
-    @FXML
-    private Label birthdayLabel;
+    private TableColumn<Person, String> taskNotesColumn;
 
     // Reference to the main application.
     private DingoLoader mainApp;
@@ -33,7 +22,7 @@ public class PersonOverviewController {
      * The constructor.
      * The constructor is called before the initialize() method.
      */
-    public PersonOverviewController() {
+    public TaskOverviewController() {
     }
 
     /**
@@ -43,8 +32,9 @@ public class PersonOverviewController {
     @FXML
     private void initialize() {
     	// Initialize the person table with the two columns.
-        firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
-        lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
+        taskNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
+        taskFileColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
+        taskNotesColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
     }
 
     /**

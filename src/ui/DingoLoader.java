@@ -85,14 +85,14 @@ public class DingoLoader extends Application {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(DingoLoader.class.getResource("/ui/TasksOverview.fxml"));
+            loader.setLocation(DingoLoader.class.getResource("/ui/TaskOverview.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
             
             // Set person overview into the center of root layout.
             rootLayout.setCenter(personOverview);
             
             // Give the controller access to the main app.
-            PersonOverviewController controller = loader.getController();
+            TaskOverviewController controller = loader.getController();
             controller.setMainApp(this);
             
         } catch (IOException e) {
