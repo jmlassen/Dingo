@@ -19,14 +19,13 @@ import java.util.List;
  */
 public class TaskStorage {
     Connection dbConnection;
-    Statement dbStatement;
     
     public TaskStorage() {
         try {
             // Initialize connections to the dingo database
             Class.forName("org.sqlite.JDBC");
             dbConnection = DriverManager.getConnection("jdbc:sqlite:dingo.db");
-            dbStatement = dbConnection.createStatement();
+            Statement dbStatement = dbConnection.createStatement();
             
             // Generate and run CREATE TABLE statements
             createTasksTable();
@@ -39,8 +38,6 @@ public class TaskStorage {
     /**
      * Inserts a task into the tasks table
      * @param task task created by user
-     * @param name string name the user gave for the task
-     * @param notes string notes the user gave for the task
      * @throws SQLException 
      */
     public void addTask(Task task) throws SQLException {
@@ -65,6 +62,7 @@ public class TaskStorage {
         insertTask += (flags.contains("deletion") ? 1 : 0) + ", ";
         insertTask += "'" + addActions(task) + "')";
         // System.out.println(insertTask);
+        Statement dbStatement = dbConnection.createStatement();
         dbStatement.executeUpdate(insertTask);
     }
     
@@ -80,7 +78,8 @@ public class TaskStorage {
                     "(TYPE, ARGUMENT) VALUES (" +
                     "'" + action.getAction() + "'," + 
                     "'" + action.getArgument() + "')";
-
+            
+            Statement dbStatement = dbConnection.createStatement();
             dbStatement.execute(insertAction);
             // Get the ID of the record we just added
             ResultSet result = dbStatement.executeQuery("SELECT MAX(ID) FROM Actions;");
@@ -109,7 +108,8 @@ public class TaskStorage {
                 ",ACTIONS           TEXT" +
                 ",DATE_ADDED        DATETIME        DEFAULT     CURRENT_TIMESTAMP)";
             
-            dbStatement.execute(createTasksTable);
+        Statement dbStatement = dbConnection.createStatement();
+        dbStatement.execute(createTasksTable);
     }
 
     /**
@@ -123,6 +123,7 @@ public class TaskStorage {
                 ",ARGUMENT          TEXT            NOT NULL" +
                 ",DATE_ADDED        DATETIME        DEFAULT     CURRENT_TIMESTAMP)";
         
+        Statement dbStatement = dbConnection.createStatement();
         dbStatement.execute(createActionsTable);
     }
 
@@ -132,17 +133,17 @@ public class TaskStorage {
      */
     List<Task> getTasks() throws SQLException {
         List<Task> tasks = new ArrayList<>();
-        
+        Statement dbStatement = dbConnection.createStatement();
         ResultSet tasksSet = dbStatement.executeQuery("SELECT * FROM Tasks;");
-        
+
         while (tasksSet.next()) {
             String name = tasksSet.getString("NAME");
             String notes = tasksSet.getString("NOTES");
             String file = tasksSet.getString("FILENAME");
             Task task = new Task(name, notes, file);
-            
-            System.out.println(name + "\t" + notes + "\t" + file);
-            
+
+            //System.out.println(name + "\t" + notes + "\t" + file);
+
             // Get flags
             if (tasksSet.getString("EVENT_CREATED").equals("1")) {
                 task.addFlag(new Flag("creation"));
@@ -153,14 +154,15 @@ public class TaskStorage {
             } if (tasksSet.getString("EVENT_DELETED").equals("1")) {
                 task.addFlag(new Flag("deletion"));
             }
-            
+
             // Get the actions string
             String actionsStr = tasksSet.getString("ACTIONS");
             String[] actionIds = actionsStr.split(",");
-            
+
             // Loop through each associated action
             for (String actionId : actionIds) {
-                ResultSet actionSet = dbStatement.executeQuery(
+                Statement actionStatement = dbConnection.createStatement();
+                ResultSet actionSet = actionStatement.executeQuery(
                         "SELECT * FROM Actions WHERE ID = '" + actionId + "';");
                 while (actionSet.next()) {
                     String type = actionSet.getString("TYPE");
@@ -169,10 +171,10 @@ public class TaskStorage {
                 }
                 actionSet.close();
             }
-            
+
             tasks.add(task);
         }
-        
+
         tasksSet.close();
         
         return tasks;

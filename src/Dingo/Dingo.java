@@ -22,14 +22,6 @@ public class Dingo {
     private int threadSleep = 1500;
     
     /**
-     * This needs to be moved.
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        new Dingo().run();
-    }
-    
-    /**
      * 
      */
     public Dingo() {
@@ -50,19 +42,12 @@ public class Dingo {
         dropboxMonitor.start();
         changeJournal = new ChangeJournal();
         taskStorage = new TaskStorage();
-        // Test add task
+        
         try {
-            Task t = new Task("Bar", "Foo Task", "/foo");
-            t.addAction(new Action("email", "jmlassen@gmail.com"));
-            t.addAction(new Action("program", "notepad"));
-            t.addFlag(new Flag("deletion"));
-            taskStorage.addTask(t);
-            // Init TaskService
             taskService = new TaskService(taskStorage.getTasks());
         } catch (SQLException ex) {
-            Logger.getLogger(Dingo.class.getName()).log(Level.SEVERE, null, ex);
-            System.exit(0);
         }
+        
         // Start listening.
         listen();
     }

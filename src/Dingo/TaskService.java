@@ -1,6 +1,5 @@
 package dingo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,8 +10,7 @@ public class TaskService {
     private List<Task> tasks;
     
     public TaskService(List<Task> tasks) {
-        this.tasks = new ArrayList<>();
-        //this.tasks = tasks;
+        this.tasks = tasks;
     }   
     
     /**
