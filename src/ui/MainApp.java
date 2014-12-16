@@ -1,8 +1,5 @@
 package ui;
 
-import dingo.Dingo;
-import dingo.Tower;
-import java.io.File;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -13,43 +10,49 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import static javafx.application.Application.launch;
 
-public class DingoLauncher extends Application {
+public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
-    private Dingo dingo;
     
     /**
      * The data as an observable list of Persons.
      */
-    private ObservableList<Tower> tasks = FXCollections.observableArrayList();
+    private ObservableList<Person> personData = FXCollections.observableArrayList();
 
     /**
      * Constructor
      */
-    public DingoLauncher() {
-        dingo = new Dingo();
-        tasks.add(new Tower(new File("foo.txt")));
+    public MainApp() {
+        // Add some sample data
+        personData.add(new Person("Hans", "Muster"));
+        personData.add(new Person("Ruth", "Mueller"));
+        personData.add(new Person("Heinz", "Kurz"));
+        personData.add(new Person("Cornelia", "Meier"));
+        personData.add(new Person("Werner", "Meyer"));
+        personData.add(new Person("Lydia", "Kunz"));
+        personData.add(new Person("Anna", "Best"));
+        personData.add(new Person("Stefan", "Meier"));
+        personData.add(new Person("Martin", "Mueller"));
     }
 
     /**
      * Returns the data as an observable list of Persons. 
      * @return
      */
-    public ObservableList<Tower> getTasks() {
-        return tasks;
+    public ObservableList<Person> getPersonData() {
+        return personData;
     }
 
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Dingo");
+        this.primaryStage.setTitle("AddressApp");
 
         initRootLayout();
 
-        showTaskOverview();
+        showPersonOverview();
     }
     
     /**
@@ -59,7 +62,7 @@ public class DingoLauncher extends Application {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(DingoLauncher.class.getResource("ui/RootLayout.fxml"));
+            loader.setLocation(MainApp.class.getResource("ui/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
             
             // Show the scene containing the root layout.
@@ -71,15 +74,21 @@ public class DingoLauncher extends Application {
         }
     }
 
-    public void showTaskOverview() {
+    /**
+     * Shows the person overview inside the root layout.
+     */
+    public void showPersonOverview() {
         try {
+            // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(DingoLauncher.class.getResource("ui/TaskOverview.fxml"));
+            loader.setLocation(MainApp.class.getResource("ui/PersonOverview.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
             
+            // Set person overview into the center of root layout.
             rootLayout.setCenter(personOverview);
             
-            Controller controller = loader.getController();
+            // Give the controller access to the main app.
+            PersonOverviewController controller = loader.getController();
             controller.setMainApp(this);
             
         } catch (IOException e) {
@@ -92,7 +101,7 @@ public class DingoLauncher extends Application {
      * @return
      */
     public Stage getPrimaryStage() {
-        return primaryStage;
+            return primaryStage;
     }
 
     public static void main(String[] args) {
