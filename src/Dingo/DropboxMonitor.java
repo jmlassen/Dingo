@@ -101,8 +101,10 @@ class DropboxMonitor {
             // Call a delta request.
             dbxEntries = client.getDelta(cursor);
         } catch (DbxException ex) {
-            System.out.println("Error with delta request, exiting...");
-            System.exit(1);
+            // TODO: maybe do not exit here. If you loose internet connection,
+            // the program exits
+            System.out.println("Error with delta request");
+            // System.exit(1);
         }
         
         // Check to see if any changes were received

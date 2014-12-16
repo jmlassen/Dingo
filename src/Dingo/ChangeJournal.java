@@ -108,7 +108,7 @@ public class ChangeJournal {
                 insertStatement += ", " + change.getRevision() + ");";
             }
             
-            System.out.println(insertStatement);
+            //System.out.println(insertStatement);
             statement.execute(insertStatement);
             
             statement.close();

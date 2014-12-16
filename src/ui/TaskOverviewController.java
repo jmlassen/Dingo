@@ -1,21 +1,22 @@
 package ui;
 
+import dingo.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 public class TaskOverviewController {
     @FXML
-    private TableView<Person> personTable;
+    private TableView<Task> taskTable;
     @FXML
-    private TableColumn<Person, String> taskNameColumn;
+    private TableColumn<Task, String> taskNameColumn;
     @FXML
-    private TableColumn<Person, String> taskFileColumn;
+    private TableColumn<Task, String> taskFileColumn;
     @FXML
-    private TableColumn<Person, String> taskNotesColumn;
+    private TableColumn<Task, String> taskNotesColumn;
 
     // Reference to the main application.
-    private DingoLoader mainApp;
+    private DingoLoader dingoLoader;
 
     /**
      * The constructor.
@@ -31,20 +32,20 @@ public class TaskOverviewController {
     @FXML
     private void initialize() {
     	// Initialize the person table with the two columns.
-        taskNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
-        taskFileColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
-        taskNotesColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
+        taskNameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
+        taskFileColumn.setCellValueFactory(cellData -> cellData.getValue().getFileProperty());
+        taskNotesColumn.setCellValueFactory(cellData -> cellData.getValue().getNotesProperty());
     }
 
     /**
      * Is called by the main application to give a reference back to itself.
      * 
-     * @param mainApp
+     * @param dingoApp
      */
-    public void setMainApp(DingoLoader mainApp) {
-        this.mainApp = mainApp;
+    public void setMainApp(DingoLoader dingoApp) {
+        this.dingoLoader = dingoApp;
 
         // Add observable list data to the table
-        personTable.setItems(mainApp.getPersonData());
+        taskTable.setItems(dingoApp.getTaskData());
     }
 }
