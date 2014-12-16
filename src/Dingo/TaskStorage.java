@@ -43,29 +43,29 @@ public class TaskStorage {
      * @param notes string notes the user gave for the task
      * @throws SQLException 
      */
-    public void addTask(Task task) throws SQLException  {
+    public void addTask(Task task) throws SQLException {
         List<String> flags = new ArrayList<>();
         for (Flag flag : task.getFlags()) {
             flags.add(flag.getFlagType());
         }
         
         // Holy string concatenation, Batman.
-        String insertTower = "INSERT INTO Tasks " +
+        String insertTask = "INSERT INTO Tasks " +
                 "(NAME, NOTES, START_DATE, END_DATE, FILENAME, " +
                 "EVENT_CREATED, EVENT_MODIFIED, EVENT_MOVED, EVENT_DELETED, " +
                 "ACTIONS) VALUES (";
-        insertTower += "'" + task.getName() + "', ";  // Add task name
-        insertTower += "'" + task.getNotes() + "', "; // Add task notes
-        insertTower += "" + ", ";  // TODO add start date to tower class
-        insertTower += "" + ", ";  // TODO add end date to tower class
-        insertTower += "'" + task.getFile() + "', ";
-        insertTower += (flags.contains("creation")) ? 1 : 0 + ", ";
-        insertTower += (flags.contains("alteration")) ? 1 : 0 + ", ";
-        insertTower += (flags.contains("moveation")) ? 1 : 0 + ", ";
-        insertTower += (flags.contains("deletion")) ? 1 : 0 + ", ";
-        insertTower += "'" + addActions(task) + "')";
-        
-        dbStatement.executeUpdate(insertTower);
+        insertTask += "'" + task.getName() + "', ";  // Add task name
+        insertTask += "'" + task.getNotes() + "', "; // Add task notes
+        insertTask += "'" + "', ";  // TODO add start date to task class
+        insertTask += "'" + "', ";  // TODO add end date to task class
+        insertTask += "'" + task.getFile() + "', ";
+        insertTask += (flags.contains("creation")) ? 1 : 0 + ", ";
+        insertTask += (flags.contains("alteration")) ? 1 : 0 + ", ";
+        insertTask += (flags.contains("moveation")) ? 1 : 0 + ", ";
+        insertTask += (flags.contains("deletion")) ? 1 : 0 + ", ";
+        insertTask += "'" + addActions(task) + "')";
+        System.out.println(insertTask);
+        dbStatement.executeUpdate(insertTask);
     }
     
     /**
@@ -75,21 +75,19 @@ public class TaskStorage {
      */
     private String addActions(Task task) throws SQLException {
         String insertedActions = "";
-        for (Flag flag : task.getFlags()) {
-            for (Action action : flag.getActions()) {
-                String insertAction = "INSERT INTO Actions " +
-                        "(TYPE, ARGUMENT) VALUES (" +
-                        "'" + action.getFlag().getFlagType() + "'," + 
-                        "'" + action.getArgument() + "')";
-                
-                dbStatement.execute(insertAction);
-                // Get the ID of the record we just added
-                ResultSet result = dbStatement.executeQuery("SELECT MAX(ID) FROM Tasks");
-                insertedActions += result.getString(1) + ",";
-            }
+        for (Action action : task.getActions()) {
+            String insertAction = "INSERT INTO Actions " +
+                    "(TYPE, ARGUMENT) VALUES (" +
+                    "'" + action.getAction() + "'," + 
+                    "'" + action.getArgument() + "')";
+
+            dbStatement.execute(insertAction);
+            // Get the ID of the record we just added
+            ResultSet result = dbStatement.executeQuery("SELECT MAX(ID) FROM Tasks");
+            insertedActions += result.getString(1) + ",";
         }
         // Remove the last comma
-        return insertedActions.substring(0, insertedActions.length() - 2);
+        return "0"; //insertedActions.substring(0, insertedActions.length() - 2);
     }
 
     /**

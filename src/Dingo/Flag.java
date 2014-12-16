@@ -5,9 +5,6 @@
  */
 package dingo;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author HEIDY2016
@@ -17,17 +14,13 @@ public class Flag {
     private String flagType;
     // Recipient of the sendEmail notification for this flag
     private String to;  
-    // There is a different action(reaction) for each flagType
-    private List<Action> actions;
     
     /**
      * Constructor
      * @param flagType
      */
-    public Flag(String flagType, String to) {
+    public Flag(String flagType) {
         this.flagType = flagType;
-        this.to = to;
-        actions = new ArrayList<>();
     }        
     
      /**
@@ -46,40 +39,6 @@ public class Flag {
     }
 
     /**
-     * @return actions
-     */
-    public List<Action> getActions() {
-        return actions;
-    }
-
-    /**
-     *
-     * @param actions
-     */
-    public void setActions(List<Action> actions) {
-        this.actions = actions;
-    }    
-    
-    /**
-     *
-     * @param actions
-     */
-    public void addActions(Action action) {
-        actions.add(action);
-    }   
-    
-    /**
-     *
-     * @param flag
-     */
-    public void handleFlag (String flag) {
-        
-        if (flag.equals(flagType)) {
-            runAction();
-        }
-    }
-    
-    /**
      * getter for the recipient of the sendEmail notification
      * @return 
      */
@@ -94,15 +53,4 @@ public class Flag {
     public void setTo(String to) {
         this.to = to;
     }
-    
-    
-    
-    /**
-     *
-     */
-    public void runAction() {
-        for (Action a: actions) {
-            a.run();
-        }
-    }   
 }

@@ -2,7 +2,10 @@ package dingo;
 
 import java.net.InetAddress;
 import java.net.ServerSocket;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -47,6 +50,13 @@ public class Dingo {
         dropboxMonitor.start();
         changeJournal = new ChangeJournal();
         taskStorage = new TaskStorage();
+        // Test add task
+        try {
+            taskStorage.addTask(new Task("/foo", "Foo Task", "Bar"));
+        } catch (SQLException ex) {
+            Logger.getLogger(Dingo.class.getName()).log(Level.SEVERE, null, ex);
+            System.exit(0);
+        }
         // Init TaskService
         taskService = new TaskService(taskStorage.getTasks());
         // Start listening.
@@ -107,7 +117,7 @@ public class Dingo {
      * @return 
      */
     public List<Task> getTasks() {
-        return taskService.getTowers();
+        return taskService.getTasks();
     }
     
     /**

@@ -1,7 +1,5 @@
 package dingo;
 
-import java.io.File;
-
 /**
  *
  * @author HEIDY2016
@@ -9,25 +7,29 @@ import java.io.File;
  */
 public class Action {
     private String action;
-    private Flag flag;
-    private File file;
     private String argument;
     
     /**
      * @param action
-     * @param flag
-     * @param file
+     * @param argument
      */
-    public Action(String action, Flag flag, File file) {
+    public Action(String action, String argument) {
         this.action = action;
-        this.flag = flag;
-        this.file = file;
+        this.argument = argument;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public String getArgument() {
         return argument;
     }
 
+    /**
+     * 
+     * @param argument 
+     */
     public void setArgument(String argument) {
         this.argument = argument;
     }
@@ -51,38 +53,6 @@ public class Action {
      *
      * @return flag
      */
-    
-    public Flag getFlag() {
-        return flag;
-    }
-    
-    /**
-     *
-     * @param flag
-     */
-    public void setFlag(Flag flag) {
-        this.flag = flag;
-    }
-    
-    /**
-     *
-     * @return file
-     */
-    public File getFile() {
-        return file;
-    }
-
-    /**
-     *
-     * @param file
-     */
-    public void setFile(File file) {
-        this.file = file;
-    }
-            
-    /**
-     *
-     */
     public void run() {
         if (action.equals("email")) {
             sendEmail();
@@ -93,30 +63,30 @@ public class Action {
     
     /**
      * The method sends an sendEmail notification to the indicated recipient (to)
- according to the current flag
+     * according to the current flag.
      * @param to
      */
     public void sendEmail() {
         
         Email email;
-        
-        if (flag.getFlagType().equals("deletion")) {
-            // Create an sendEmail instance for a deletion notification
-            email = new Email(file.getPath() + " has been deleted in the Dropbox", flag.getTo());
-            email.run();
-            System.out.println("Sending an email: " + file.getPath() + " has been deleted");
-        } else if (flag.getFlagType().equals("alteration")) {
-            // Create an sendEmail instance for an alteration notification
-            email = new Email(file.getPath() + " has been altered in the Dropbox", flag.getTo());
-            email.run();
-            System.out.println("Sending an email: " + file.getPath() + " has been altered");
-        } else if (flag.getFlagType().equals("changeLoc")) {
-            // Create an sendEmail instance for a change of Location notification
-            email = new Email(file.getPath() + " has changed location in the Dropbox", flag.getTo());
-            email.run();
-            System.out.println("Sending an email: " + file.getPath() + " has been changed");
-        } else {
-            System.out.println("Error: Flag is not recognized");
-        }
+//        
+//        if (flag.getFlagType().equals("deletion")) {
+//            // Create an sendEmail instance for a deletion notification
+//            email = new Email(file.getPath() + " has been deleted in the Dropbox", flag.getTo());
+//            email.run();
+//            System.out.println("Sending an email: " + file.getPath() + " has been deleted");
+//        } else if (flag.getFlagType().equals("alteration")) {
+//            // Create an sendEmail instance for an alteration notification
+//            email = new Email(file.getPath() + " has been altered in the Dropbox", flag.getTo());
+//            email.run();
+//            System.out.println("Sending an email: " + file.getPath() + " has been altered");
+//        } else if (flag.getFlagType().equals("changeLoc")) {
+//            // Create an sendEmail instance for a change of Location notification
+//            email = new Email(file.getPath() + " has changed location in the Dropbox", flag.getTo());
+//            email.run();
+//            System.out.println("Sending an email: " + file.getPath() + " has been changed");
+//        } else {
+//            System.out.println("Error: Flag is not recognized");
+//        }
     }
 }

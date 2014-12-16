@@ -8,27 +8,27 @@ import java.util.List;
  * @author HEIDY2016
  */
 public class TaskService {
-    private List<Task> towers;
+    private List<Task> tasks;
     
-    public TaskService(List<Task> towers) {
-        this.towers = new ArrayList<>();
-        //this.towers = towers;
+    public TaskService(List<Task> tasks) {
+        this.tasks = new ArrayList<>();
+        //this.tasks = tasks;
     }   
     
     /**
      * 
-     * @param tower
+     * @param task
      */
-    public void addTower (Task tower) {  
-        towers.add(tower);
+    public void addTask (Task task) {  
+        tasks.add(task);
     }
     
     /**
-     * Return back our towers, for the GUI.
+     * Return back our tasks, for the GUI.
      * @return 
      */
-    public List<Task> getTowers() {
-        return towers;
+    public List<Task> getTasks() {
+        return tasks;
     }
     
     /**
@@ -37,12 +37,12 @@ public class TaskService {
      */
     public void handleChanges(List<Change> changes) {
         for (Change change: changes) {
-            // Loop through each of our towers
-            for (Task tower:towers) {
+            // Loop through each of our tasks
+            for (Task task:tasks) {
                 // Find the file in the list of files been watched
-                if (tower.getFile().equals(change.getFilename())) {
+                if (task.getFile().equals(change.getFilename())) {
                     // Let the tower handle the change
-                    tower.handleChange(change);
+                    task.handleChange(change);
                 }            
             }
         }

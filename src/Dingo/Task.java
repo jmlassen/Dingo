@@ -19,6 +19,7 @@ public class Task {
     private StringProperty notes;
     private StringProperty file;
     private List<Flag> flags;
+    private List<Action> actions;
 
     /**
      * Create Task with only the file, probably need to remove.
@@ -27,6 +28,7 @@ public class Task {
     public Task(String file) {
         this.file = new SimpleStringProperty(file);
         this.flags = new ArrayList<>();
+        this.actions = new ArrayList<>();
     }
     
     /**
@@ -39,6 +41,8 @@ public class Task {
         this.name = new SimpleStringProperty(name);
         this.notes = new SimpleStringProperty(notes);
         this.file = new SimpleStringProperty(file);
+        this.flags = new ArrayList<>();
+        this.actions = new ArrayList<>();
     }
     
     /**
@@ -122,6 +126,7 @@ public class Task {
     }
     
     /**
+     * 
      * @param flags
      */
     public void setFlags(List<Flag> flags) {
@@ -129,11 +134,37 @@ public class Task {
     }
     
     /**
+     * 
      * @param flag
      */
-    public void addFlags(Flag flag) {
-        this.flags.add(flag);
+    public void addFlag(Flag flag) {
+        flags.add(flag);
     }
+    
+    /**
+     * 
+     * @param actions 
+     */
+    public void setActions(List<Action> actions) {
+        this.actions = actions;
+    }
+    
+    /**
+     * 
+     * @param action 
+     */
+    public void addAction(Action action) {
+        actions.add(action);
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public List<Action> getActions() {
+        return actions;
+    }
+    
     
     /**
      *
@@ -152,7 +183,7 @@ public class Task {
      * 
      * @param change 
      */
-    void handleChange(Change change) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void handleChange(Change change) {
+        
     }
 }

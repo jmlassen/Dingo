@@ -35,7 +35,7 @@ public class CommandPrompt {
         if (task.equals("Run Command")) {
             command = "cmd /c " + execute; // open the command line & run command
         } else if (task.equals("Start Program")) {            
-            command = execute;             // run a program from the command line
+            command = execute;  // run a program from the command line
         } else {
             System.out.println("Error: The task is not recognized");
         }
