@@ -116,20 +116,25 @@ public class TaskEditDialogController {
             // Add Events
             if (fileCreatedCheckBox.isSelected()) {
                 task.addFlag(new Flag("creation"));
-            } else if (fileModifiedCheckBox.isSelected()) {
+            }
+            if (fileModifiedCheckBox.isSelected()) {
                 task.addFlag(new Flag("alteration"));
-            } else if (fileMovedCheckBox.isSelected()) {
+            }
+            if (fileMovedCheckBox.isSelected()) {
                 task.addFlag(new Flag("moveation"));
-            } else if (fileDeletedCheckBox.isSelected()) {
+            }
+            if (fileDeletedCheckBox.isSelected()) {
                 task.addFlag(new Flag("deletion"));
             }
             
             // Add Actions
             if (!toTextField.getText().equals("")) {
                 task.addAction(new Action("email", toTextField.getText()));
-            } else if (!selectProgramTextField.getText().equals("")) {
+            }
+            if (!selectProgramTextField.getText().equals("")) {
                 task.addAction(new Action("program", selectProgramTextField.getText()));
-            } else if (!commandTextField.getText().equals("")) {
+            }
+            if (!commandTextField.getText().equals("")) {
                 task.addAction(new Action("command", commandTextField.getText()));
             }
             

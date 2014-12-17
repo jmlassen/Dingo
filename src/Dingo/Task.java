@@ -187,6 +187,7 @@ public class Task {
     public void handleChange(Change change) {
         for (Action action : actions) {
             action.run(change.getFilename(), new Flag(change.getType()));
+            //System.out.println(change.getType());
         }
     }
 }

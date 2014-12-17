@@ -36,7 +36,7 @@ public class TaskService {
     public void handleChanges(List<Change> changes) {
         for (Change change: changes) {
             // Loop through each of our tasks
-            for (Task task:tasks) {
+            for (Task task : tasks) {
                 // Find the file in the list of files been watched
                 if ((task.getFile()).equals(change.getFilename())) {
                     // Let the tower handle the change
