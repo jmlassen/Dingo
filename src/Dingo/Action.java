@@ -4,7 +4,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 /**
- *
+ * Valid actions are: email, program, command
  * @author HEIDY2016
  * @author Joel Lassen <jmlassen at gmail.com>
  */

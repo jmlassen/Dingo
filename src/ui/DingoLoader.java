@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class DingoLoader extends Application {
@@ -92,6 +93,37 @@ public class DingoLoader extends Application {
             
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    
+    /**
+     * 
+     * @param task
+     * @return 
+     */
+    public boolean showTaskEditDialog(Task task) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(DingoLoader.class.getResource("/ui/TaskEditDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            
+            Stage taskEditStage = new Stage();
+            taskEditStage.setTitle("Edit Task");
+            taskEditStage.initModality(Modality.WINDOW_MODAL);
+            taskEditStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            taskEditStage.setScene(scene);
+            
+            TaskEditDialogController controller = loader.getController();
+            controller.setTaskEditStage(taskEditStage);
+            controller.setTask(task);
+            
+            taskEditStage.showAndWait();
+            
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
     }
     
