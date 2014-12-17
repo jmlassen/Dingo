@@ -140,7 +140,7 @@ public class TaskStorage {
             String name = tasksSet.getString("NAME");
             String notes = tasksSet.getString("NOTES");
             String file = tasksSet.getString("FILENAME");
-            System.out.println(file);
+            //System.out.println(file);
             Task task = new Task(name, notes, file);
 
             //System.out.println(name + "\t" + notes + "\t" + file);

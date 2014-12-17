@@ -41,7 +41,7 @@ public class Task {
         this.name = new SimpleStringProperty(name);
         this.notes = new SimpleStringProperty(notes);
         this.file = new SimpleStringProperty(file);
-        System.out.println(this.file.get());
+        //System.out.println(this.file.get());
         this.flags = new ArrayList<>();
         this.actions = new ArrayList<>();
     }

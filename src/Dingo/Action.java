@@ -66,12 +66,14 @@ public class Action {
      * @return flag
      */
     public void run(String file, Flag flag) {
-        if (type.equals("email")) {
+        if (getAction().equals("email")) {
             sendEmail(file, flag);
-        } else if (type.equals("program")) {
-            
-        } else if (type.equals("command")) {
-            
+        } else if (getAction().equals("program")) {
+            CommandPrompt c = new CommandPrompt(getArgument(), "Start Program");
+            c.run();
+        } else if (getAction().equals("command")) {
+            CommandPrompt c = new CommandPrompt(getArgument(), "Run Command");
+            c.run();
         }
     }
     
@@ -88,19 +90,19 @@ public class Action {
             // Create an sendEmail instance for a deletion notification
             email = new Email(file + " has been deleted in the Dropbox", argument.get());
             email.run();
-            System.out.println("Sending an email: " + file + " has been deleted");
+            // System.out.println("Sending an email: " + file + " has been deleted");
         } else if (flag.getType().equals("alteration")) {
             // Create an sendEmail instance for an alteration notification
             email = new Email(file + " has been altered in the Dropbox", argument.get());
             email.run();
-            System.out.println("Sending an email: " + file + " has been altered");
+            // System.out.println("Sending an email: " + file + " has been altered");
         } else if (flag.getType().equals("changeation")) {
             // Create an sendEmail instance for a change of Location notification
             email = new Email(file + " has changed location in the Dropbox", argument.get());
             email.run();
-            System.out.println("Sending an email: " + file + " has been changed");
+            // System.out.println("Sending an email: " + file + " has been changed");
         } else {
-            System.out.println("Error: Flag is not recognized");
+            // System.out.println("Error: Flag is not recognized");
         }
     }
 }

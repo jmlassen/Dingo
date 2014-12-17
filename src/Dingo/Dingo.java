@@ -155,5 +155,6 @@ public class Dingo {
      */
     public void removeTask(Task task) throws SQLException {
        taskStorage.removeTask(task);
+       taskService.getTasks().remove(task);
     }
 }

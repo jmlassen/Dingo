@@ -132,7 +132,7 @@ class DropboxMonitor {
                 change.setType("deletion");
             }
             changes.add(change);
-            System.out.println(entry.metadata);
+            //System.out.println(entry.metadata);
         }
         
         // Update the cursor so we don't get duplicate changes

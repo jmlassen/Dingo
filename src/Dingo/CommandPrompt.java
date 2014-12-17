@@ -41,26 +41,8 @@ public class CommandPrompt {
         }
         
         Process p = Runtime.getRuntime().exec(command);
-        
-        BufferedReader readInfo = new BufferedReader
-          (new InputStreamReader(p.getInputStream()));
-        BufferedReader readError = new BufferedReader
-          (new InputStreamReader(p.getErrorStream()));
-        
-        // Display any data to the user
-        while ((line = readInfo.readLine()) != null) {
-          System.out.println(line);
-        }
-        readInfo.close();
-        
-        // Inform if there are errors after running a command
-        while ((line = readError.readLine()) != null) {
-          System.out.println(line);
-        }
-        readError.close();
        
         p.waitFor();
-        System.out.println("Done working on command line.");
       }
       catch (Exception err) {
         err.printStackTrace();

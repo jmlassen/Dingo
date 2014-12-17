@@ -104,7 +104,7 @@ public class TaskOverviewController {
                 Dialogs.create()
                     .title("Delete failed")
                     .masthead("Task delete failed")
-                    .message("Sorry, the task deletion failed.")
+                    .message("Sorry, the task deletion failed. Please try again momentarily.")
                     .showWarning();
             }
         } else {

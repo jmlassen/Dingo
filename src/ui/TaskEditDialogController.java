@@ -128,9 +128,9 @@ public class TaskEditDialogController {
             if (!toTextField.getText().equals("")) {
                 task.addAction(new Action("email", toTextField.getText()));
             } else if (!selectProgramTextField.getText().equals("")) {
-                task.addAction(new Action("program", toTextField.getText()));
+                task.addAction(new Action("program", selectProgramTextField.getText()));
             } else if (!commandTextField.getText().equals("")) {
-                task.addAction(new Action("command", toTextField.getText()));
+                task.addAction(new Action("command", commandTextField.getText()));
             }
             
             okClicked = true;
@@ -153,8 +153,17 @@ public class TaskEditDialogController {
             fileTextField.setText("");
         } else {
             String[] split = file.getPath().split("\\Dropbox");
-            fileTextField.setText(split[1]);
+            fileTextField.setText(split[1].replace("\\", "/"));
         }
+    }
+    
+    @FXML
+    private void handleSelectProgram() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Program");
+        File file = fileChooser.showOpenDialog(taskEditStage);
+        
+        selectProgramTextField.setText(file.getPath());
     }
     
     private void showTaskDetails(Task task) {
