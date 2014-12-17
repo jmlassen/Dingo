@@ -9,7 +9,7 @@ import javafx.beans.property.StringProperty;
  * @author Joel Lassen <jmlassen at gmail.com>
  */
 public class Action {
-    private StringProperty action;
+    private StringProperty type;
     private StringProperty argument;
     
     /**
@@ -17,7 +17,7 @@ public class Action {
      * @param argument
      */
     public Action(String action, String argument) {
-        this.action = new SimpleStringProperty(action);
+        this.type = new SimpleStringProperty(action);
         this.argument = new SimpleStringProperty(argument);
     }
     
@@ -46,7 +46,7 @@ public class Action {
      * @param action
      */
     public void setAction (String action) {
-        this.action = new SimpleStringProperty(action);
+        this.type = new SimpleStringProperty(action);
     }
     
     /**
@@ -54,21 +54,23 @@ public class Action {
      * @return action
      */
     public String getAction () {
-        return action.get();
+        return type.get();
     }
     
     public StringProperty getActionProperty() {
-        return action;
+        return type;
     }
     
     /**
      *
      * @return flag
      */
-    public void run() {
-        if (action.equals("email")) {
-            sendEmail();
-        } else if (action.equals("")) {
+    public void run(String file, Flag flag) {
+        if (type.equals("email")) {
+            sendEmail(file, flag);
+        } else if (type.equals("program")) {
+            
+        } else if (type.equals("command")) {
             
         }
     }
@@ -78,27 +80,27 @@ public class Action {
      * according to the current flag.
      * @param to
      */
-    public void sendEmail() {
+    public void sendEmail(String file, Flag flag) {
         
         Email email;
-//        
-//        if (flag.getFlagType().equals("deletion")) {
-//            // Create an sendEmail instance for a deletion notification
-//            email = new Email(file.getPath() + " has been deleted in the Dropbox", flag.getTo());
-//            email.run();
-//            System.out.println("Sending an email: " + file.getPath() + " has been deleted");
-//        } else if (flag.getFlagType().equals("alteration")) {
-//            // Create an sendEmail instance for an alteration notification
-//            email = new Email(file.getPath() + " has been altered in the Dropbox", flag.getTo());
-//            email.run();
-//            System.out.println("Sending an email: " + file.getPath() + " has been altered");
-//        } else if (flag.getFlagType().equals("changeLoc")) {
-//            // Create an sendEmail instance for a change of Location notification
-//            email = new Email(file.getPath() + " has changed location in the Dropbox", flag.getTo());
-//            email.run();
-//            System.out.println("Sending an email: " + file.getPath() + " has been changed");
-//        } else {
-//            System.out.println("Error: Flag is not recognized");
-//        }
+        
+        if (flag.getType().equals("deletion")) {
+            // Create an sendEmail instance for a deletion notification
+            email = new Email(file + " has been deleted in the Dropbox", argument.get());
+            email.run();
+            System.out.println("Sending an email: " + file + " has been deleted");
+        } else if (flag.getType().equals("alteration")) {
+            // Create an sendEmail instance for an alteration notification
+            email = new Email(file + " has been altered in the Dropbox", argument.get());
+            email.run();
+            System.out.println("Sending an email: " + file + " has been altered");
+        } else if (flag.getType().equals("changeation")) {
+            // Create an sendEmail instance for a change of Location notification
+            email = new Email(file + " has changed location in the Dropbox", argument.get());
+            email.run();
+            System.out.println("Sending an email: " + file + " has been changed");
+        } else {
+            System.out.println("Error: Flag is not recognized");
+        }
     }
 }

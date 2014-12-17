@@ -140,6 +140,7 @@ public class TaskStorage {
             String name = tasksSet.getString("NAME");
             String notes = tasksSet.getString("NOTES");
             String file = tasksSet.getString("FILENAME");
+            System.out.println(file);
             Task task = new Task(name, notes, file);
 
             //System.out.println(name + "\t" + notes + "\t" + file);
@@ -178,5 +179,17 @@ public class TaskStorage {
         tasksSet.close();
         
         return tasks;
+    }
+
+    /**
+     * Remove task from the table.
+     * @param task 
+     */
+    void removeTask(Task task) throws SQLException {
+        Statement deleteStatement = dbConnection.createStatement();
+        String query = "DELETE FROM Tasks WHERE NAME = '" + task.getName() + "'";
+        query += " AND FILENAME = '" + task.getFile() + "';";
+        deleteStatement.execute(query);
+        // TODO delete the actions in the future, my good chum
     }
 }

@@ -36,6 +36,14 @@ public class DingoLoader extends Application {
         }
         
     }
+    
+    /**
+     * 
+     * @return 
+     */
+    public Dingo getDingo() {
+        return dingo;
+    }
 
     /**
      * Returns the data as an observable list of Persons. 
@@ -56,6 +64,14 @@ public class DingoLoader extends Application {
     }
     
     /**
+     * Quick fix, my good chum.
+     */
+    @Override
+    public void stop() {
+        dingo.setListening(false);
+    }
+    
+    /**
      * Initializes the root layout.
      */
     public void initRootLayout() {
@@ -67,7 +83,7 @@ public class DingoLoader extends Application {
             
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
-            primaryStage.setScene(scene);
+            primaryStage.   setScene(scene);
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -138,4 +154,6 @@ public class DingoLoader extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+    
 }

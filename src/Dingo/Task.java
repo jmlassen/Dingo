@@ -41,6 +41,7 @@ public class Task {
         this.name = new SimpleStringProperty(name);
         this.notes = new SimpleStringProperty(notes);
         this.file = new SimpleStringProperty(file);
+        System.out.println(this.file.get());
         this.flags = new ArrayList<>();
         this.actions = new ArrayList<>();
     }
@@ -184,6 +185,8 @@ public class Task {
      * @param change 
      */
     public void handleChange(Change change) {
-        
+        for (Action action : actions) {
+            action.run(change.getFilename(), new Flag(change.getType()));
+        }
     }
 }

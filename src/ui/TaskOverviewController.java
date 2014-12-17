@@ -1,6 +1,9 @@
 package ui;
 
 import dingo.Task;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -63,14 +66,47 @@ public class TaskOverviewController {
         boolean okClicked = dingoLoader.showTaskEditDialog(tempTask);
         if (okClicked) {
             dingoLoader.getTaskData().add(tempTask);
+            try {
+                dingoLoader.getDingo().addTask(tempTask);
+            } catch (Exception ex) {
+                Logger.getLogger(TaskOverviewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
     }
     
     @FXML
     private void handleEditTask() {
         Task selectedTask = taskTable.getSelectionModel().getSelectedItem();
+        // TODO delete task from task table?
         if (selectedTask != null) {
             boolean okClicked = dingoLoader.showTaskEditDialog(selectedTask);
+        } else {
+            Dialogs.create()
+                    .title("No Selection")
+                    .masthead("No Task Selected")
+                    .message("Please select a task from the table")
+                    .showWarning();
+        }
+    }
+    
+    @FXML
+    private void handleDeleteTask() {
+        Task selectedTask = taskTable.getSelectionModel().getSelectedItem();
+        // TODO delete task from task table?
+        if (selectedTask != null) {
+            // Remove from view
+            try {
+                dingoLoader.getDingo().removeTask(selectedTask);
+                dingoLoader.getTaskData().remove(selectedTask);
+            } catch (SQLException ex) {
+                Logger.getLogger(TaskOverviewController.class.getName()).log(Level.SEVERE, null, ex);
+                Dialogs.create()
+                    .title("Delete failed")
+                    .masthead("Task delete failed")
+                    .message("Sorry, the task deletion failed.")
+                    .showWarning();
+            }
         } else {
             Dialogs.create()
                     .title("No Selection")

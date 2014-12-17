@@ -9,10 +9,7 @@ import dingo.Action;
 import dingo.Flag;
 import dingo.Task;
 import java.io.File;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import org.controlsfx.dialog.Dialogs;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -155,7 +152,8 @@ public class TaskEditDialogController {
                 .showError();
             fileTextField.setText("");
         } else {
-            fileTextField.setText(file.getPath());
+            String[] split = file.getPath().split("\\Dropbox");
+            fileTextField.setText(split[1]);
         }
     }
     
@@ -176,7 +174,7 @@ public class TaskEditDialogController {
                 } else if (flag.getType().equals("moveation")) {
                     fileMovedCheckBox.setSelected(true);
                 } else if (flag.getType().equals("deletion")) {
-                    fileMovedCheckBox.setSelected(true);
+                    fileDeletedCheckBox.setSelected(true);
                 }
             }
             
@@ -197,7 +195,7 @@ public class TaskEditDialogController {
             fileCreatedCheckBox.setSelected(false);
             fileModifiedCheckBox.setSelected(false);
             fileMovedCheckBox.setSelected(false);
-            fileMovedCheckBox.setSelected(false);
+            fileDeletedCheckBox.setSelected(false);
             toTextField.setText("");
             selectProgramTextField.setText("");
             commandTextField.setText("");

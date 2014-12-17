@@ -38,9 +38,12 @@ public class TaskService {
             // Loop through each of our tasks
             for (Task task:tasks) {
                 // Find the file in the list of files been watched
-                if (task.getFile().equals(change.getFilename())) {
+                System.out.println(task.getFile());
+                System.out.println(change.getFilename());
+                if ((task.getFile().trim()).equals(change.getFilename().trim())) {
                     // Let the tower handle the change
                     task.handleChange(change);
+                    System.out.println("Got in.");
                 }            
             }
         }

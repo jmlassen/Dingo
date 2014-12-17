@@ -102,6 +102,14 @@ public class Dingo {
     }
     
     /**
+     * 
+     */
+    public void addTask(Task task) throws Exception {
+       taskStorage.addTask(task);
+       taskService.addTask(task);
+    }
+    
+    /**
      * Returns the towers in the TaskService.
      * @return 
      */
@@ -139,5 +147,13 @@ public class Dingo {
      */
     public void setThreadSleep(int threadSleep) {
         this.threadSleep = threadSleep;
+    }
+
+    /**
+     * 
+     * @param selectedTask 
+     */
+    public void removeTask(Task task) throws SQLException {
+       taskStorage.removeTask(task);
     }
 }
